@@ -7,6 +7,7 @@ public class Milton_movement : MonoBehaviour
     public GameObject waterBallPrefab; //prefab del disparo de agua de Milton
     public Transform firePoint; //punto desde donde se origina el disparo
     public float waterBallSpeed = 10f;
+    private bool facingLeft = false; //booleano para saber en qué dirección mira Milton. De inicio en false porque mira a la derecha
 
     private Rigidbody rb;
 
@@ -20,6 +21,17 @@ public class Milton_movement : MonoBehaviour
         //movimiento del personaje
         float moveX = Input.GetAxis("Horizontal");  //movimineto a izquierda (con A/D o flechas izquierda/derecha)
         float moveZ = Input.GetAxis("Vertical");    //movimiento hacia delante o hacia el fondo, en vertical (con W/S o flechas arriba/abajo)
+
+        //si el jugador se mueve hacia la izquierda (X negativo), se rota el personaje hacia la izquierda
+        if (moveX < 0 && !facingLeft)
+        {
+            Flip();
+        }
+        //si el jugador se mueve hacia la derecha (X positivo), se rota el personaje hacia la derecha
+        else if (moveX > 0 && facingLeft)
+        {
+            Flip();
+        }
 
         Vector3 moveDirection = new Vector3(-moveX, 0, -moveZ).normalized * moveSpeed; //ejes X y Z en negativo porque están invertidos en el juego, no sé porqué (habría que mirarlo)
         rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); //actualizar la velocidad del personaje con la dirección en la que se mueve
@@ -39,6 +51,27 @@ public class Milton_movement : MonoBehaviour
         //añade velocidad al disparo de agua hacia delante
         Rigidbody waterBallRb = waterBall.GetComponent<Rigidbody>();
         waterBallRb.linearVelocity = -firePoint.right * waterBallSpeed;
+       
+        
+    }
+
+    //función para girar al personaje cuando cambia de dirección
+    void Flip()
+    {
+        facingLeft = !facingLeft; //cambia el booleano al valor contrario al que tenía
+        Vector3 localScale = transform.localScale; //obtiene el tamaño actual del personaje
+        localScale.x *= -1; //invierte al personaje en el eje X
+        transform.localScale = localScale; //aplica el nuevo tamaño del personaje (es decir, girado) y lo transforma
+
+        //lógica para rotar también el punto de disparo
+        if (facingLeft)
+        {
+            firePoint.localRotation = Quaternion.Euler(0, 180, 0); //si mira hacia la izquierda, rotar el punto de disparo en 180 grados, mirando hacia la izquierda también
+        }
+        else
+        {
+            firePoint.localRotation = Quaternion.Euler(0, 0, 0); //restaura el punto de disparo a su posición original cuando miramos hacia la derecha
+        }
     }
 
 }

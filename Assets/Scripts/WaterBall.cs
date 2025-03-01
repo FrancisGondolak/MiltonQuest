@@ -6,5 +6,6 @@ public class WaterBall : MonoBehaviour
     {
         //destruye el proyectil de agua al chocar contra cualquier cosa que tenga collision
         Destroy(gameObject);
+        
     }
 }
