@@ -38,7 +38,7 @@ public class Milton_movement : MonoBehaviour
 
         //añade velocidad al disparo de agua hacia delante
         Rigidbody waterBallRb = waterBall.GetComponent<Rigidbody>();
-        waterBallRb.linearVelocity = firePoint.forward * waterBallSpeed;
+        waterBallRb.linearVelocity = -firePoint.right * waterBallSpeed;
     }
 
 }
