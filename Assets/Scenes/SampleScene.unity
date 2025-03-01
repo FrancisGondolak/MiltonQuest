@@ -304,7 +304,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99941844, z: 0.034099586, w: 0}
-  m_LocalPosition: {x: -1.08, y: 7.97, z: 18.67}
+  m_LocalPosition: {x: -2.4, y: 7.97, z: 18.67}
   m_LocalScale: {x: 2.4521825, y: 2.4521823, z: 2.4521823}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 902837051}
   - component: {fileID: 902837054}
   - component: {fileID: 902837053}
+  - component: {fileID: 902837055}
   m_Layer: 0
   m_Name: Milton
   m_TagString: Untagged
@@ -665,7 +666,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &902837054
 BoxCollider:
@@ -688,6 +689,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.224687, y: 7.14, z: 0.543578}
   m_Center: {x: 2.2855492, y: 0, z: -0.017010838}
+--- !u!114 &902837055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902837050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d2d59443577ec43b9e5118dce8339e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  waterBallPrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+  waterBallSpeed: 10
 --- !u!1 &1280596009 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7927067318103300360, guid: c3f19ad9dcb0c4c439032f0cc6479675, type: 3}
