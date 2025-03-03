@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Milton_movement : MonoBehaviour
+public class MiltonMovement : MonoBehaviour
 {
 
     public float moveSpeed = 5f;
@@ -63,15 +63,9 @@ public class Milton_movement : MonoBehaviour
         localScale.x *= -1; //invierte al personaje en el eje X
         transform.localScale = localScale; //aplica el nuevo tamaño del personaje (es decir, girado) y lo transforma
 
-        //lógica para rotar también el punto de disparo
-        if (facingLeft)
-        {
-            firePoint.localRotation = Quaternion.Euler(0, 180, 0); //si mira hacia la izquierda, rotar el punto de disparo en 180 grados, mirando hacia la izquierda también
-        }
-        else
-        {
-            firePoint.localRotation = Quaternion.Euler(0, 0, 0); //restaura el punto de disparo a su posición original cuando miramos hacia la derecha
-        }
+        //ternaria para rotar el punto de disparo 180 grados dependiendo de si el booleano que indica la dirección en la que mira el personaje es true o false
+        firePoint.localRotation = Quaternion.Euler(0, facingLeft ? 180f : 0f, 0);
+
     }
 
 }
