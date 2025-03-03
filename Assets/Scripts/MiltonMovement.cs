@@ -8,6 +8,7 @@ public class MiltonMovement : MonoBehaviour
     public Transform firePoint; //punto desde donde se origina el disparo
     public float waterBallSpeed = 10f;
     private bool facingLeft = false; //booleano para saber en qué dirección mira Milton. De inicio en false porque mira a la derecha
+    public WaterCounterUI waterCounter; //asignamos el contador de agua para que sea afectado cuando Milton dispare o recoja/use botellas de agua
 
     private Rigidbody rb;
 
@@ -45,13 +46,17 @@ public class MiltonMovement : MonoBehaviour
 
     void ShootWaterBall()
     {
-        //instancia la bola de agua en el punto de disparo
-        GameObject waterBall = Instantiate(waterBallPrefab, firePoint.position, firePoint.rotation);
+        //comprobar si tenemos agua disponible para disparar
+        if (waterCounter.GetCurrentWater() > 0)
+        {
+            waterCounter.UseWater();
+            //instancia la bola de agua en el punto de disparo
+            GameObject waterBall = Instantiate(waterBallPrefab, firePoint.position, firePoint.rotation);
 
-        //añade velocidad al disparo de agua hacia delante
-        Rigidbody waterBallRb = waterBall.GetComponent<Rigidbody>();
-        waterBallRb.linearVelocity = -firePoint.right * waterBallSpeed;
-       
+            //añade velocidad al disparo de agua hacia delante
+            Rigidbody waterBallRb = waterBall.GetComponent<Rigidbody>();
+            waterBallRb.linearVelocity = -firePoint.right * waterBallSpeed;
+        }
         
     }
 
