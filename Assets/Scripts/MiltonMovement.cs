@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Milton_movement : MonoBehaviour
+public class MiltonMovement : MonoBehaviour
 {
 
     public float moveSpeed = 5f;
