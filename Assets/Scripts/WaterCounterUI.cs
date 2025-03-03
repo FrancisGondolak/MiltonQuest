@@ -15,6 +15,12 @@ public class WaterCounterUI : MonoBehaviour
         UpdateUI();
     }
 
+    //getter para acceder desde el script de MiltonMovement al agua actual
+    public int GetCurrentWater()
+    {
+        return currentWater;
+    }
+
     //función para actualizar el número de disparos en pantalla
     public void UpdateUI()
     {
