@@ -637,6 +637,7 @@ GameObject:
   - component: {fileID: 902837054}
   - component: {fileID: 902837053}
   - component: {fileID: 902837055}
+  - component: {fileID: 902837056}
   m_Layer: 0
   m_Name: Milton
   m_TagString: Player
@@ -780,6 +781,28 @@ MonoBehaviour:
   firePoint: {fileID: 1315926856}
   waterBallSpeed: 10
   waterCounter: {fileID: 2112835356}
+--- !u!95 &902837056
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902837050}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c5edd8f187e90647810fdb8ab7e3ed2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1315926855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterImage: {fileID: 1992925531}
   waterText: {fileID: 1504525252}
-  maxWater: 30
+  maxWater: 50
 --- !u!4 &2112835357
 Transform:
   m_ObjectHideFlags: 0
