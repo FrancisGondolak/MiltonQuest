@@ -6,7 +6,7 @@ public class WaterCounterUI : MonoBehaviour
 {
     public Image waterImage; //la imagen del estómago con agua
     public TextMeshProUGUI waterText; //el texto con el número de disparos
-    public int maxWater = 30; //máximo de disparos
+    public int maxWater = 50; //máximo de disparos
     private int currentWater; //disparos actuales
 
     void Start()
