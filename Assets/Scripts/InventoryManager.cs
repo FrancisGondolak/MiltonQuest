@@ -7,6 +7,8 @@ public class InventoryManager : MonoBehaviour
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
+    public int coins = 10; //monedas iniciales del jugador
+    public Text coinsText; //texto para la UI donde se mostrarán las monedas que tenemos
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
 
@@ -28,6 +30,12 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) UseItemAt(2);
         if (Input.GetKeyDown(KeyCode.Alpha4)) UseItemAt(3);
         if (Input.GetKeyDown(KeyCode.Alpha5)) UseItemAt(4);
+
+        //actualiza el texto de las monedas en la UI
+        if (coinsText != null)
+        {
+            coinsText.text = coins.ToString();
+        }
     }
 
     //Método que añade un objeto al inventario
@@ -72,6 +80,23 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Debug.Log("No hay objeto en esta casilla.");
+        }
+    }
+
+    //método para comprar un objeto (llamado desde la tienda)
+    public bool BuyItem(string itemType, int price)
+    {
+        if (coins >= price)  //si tiene suficientes monedas
+        {
+            coins -= price;  //descontamos las monedas
+            AddItem(itemType);  //añadimos el objeto al inventario
+            Debug.Log($"Compraste un {itemType}. Te quedan {coins} monedas.");
+            return true;
+        }
+        else
+        {
+            Debug.Log("No tienes suficientes monedas para comprar este objeto.");
+            return false;
         }
     }
 
