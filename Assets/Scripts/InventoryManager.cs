@@ -1,23 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
+    public int coins = 100; //monedas iniciales del jugador
+    public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
 
     void Start()
     {
         UpdateInventoryUI();
-        AddItem("WaterBottle");
-        AddItem("AppleHeart");
-        AddItem("AppleHeart");
-        AddItem("WaterBottle");
-        AddItem("AppleHeart");
     }
 
     void Update()
@@ -28,17 +26,17 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) UseItemAt(2);
         if (Input.GetKeyDown(KeyCode.Alpha4)) UseItemAt(3);
         if (Input.GetKeyDown(KeyCode.Alpha5)) UseItemAt(4);
+
+        //actualiza el texto de las monedas en la UI
+        if (coinsText != null)
+        {
+            coinsText.text = coins.ToString();
+        }
     }
 
     //Método que añade un objeto al inventario
     public bool AddItem(string itemType)
     {
-        if (items.Count >= 5)
-        {
-            Debug.Log("Inventario lleno. No puedes comprar más objetos.");
-            return false;
-        }
-
         //Controlar qué icono agregamos al inventario
         Sprite itemSprite = null;
         if (itemType == "WaterBottle")
@@ -72,6 +70,30 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Debug.Log("No hay objeto en esta casilla.");
+        }
+    }
+
+    //método para comprar un objeto (llamado desde la tienda)
+    public bool BuyItem(string itemType, int price)
+    {
+        if (coins >= price)  //si tiene suficientes monedas
+        {
+            //verificamos si hay espacio en el inventario
+            if (items.Count >= 5)  //si el inventario está lleno
+            {
+                Debug.Log("Inventario lleno. No puedes comprar más objetos.");
+                return false; //retorna false, no nos permite comprar más objetos
+            }
+
+            coins -= price;  // Descontamos las monedas
+            AddItem(itemType);  // Añadimos el objeto al inventario
+            Debug.Log($"Compraste un {itemType}. Te quedan {coins} monedas.");
+            return true;  // Compra exitosa
+        }
+        else
+        {
+            Debug.Log("No tienes suficientes monedas para comprar este objeto.");
+            return false;
         }
     }
 
