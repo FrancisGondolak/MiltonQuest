@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class StoreManager : MonoBehaviour
 {
+    public InventoryManager inventoryManager; //referencia pública, una instancia, del InventoryManager (para poder usar los métodos de ese script) Se agrega en el Inspector
     public GameObject storeUI;    //referencia al canvas de la tienda que contiene todos los objetos y botones
     public float interactionRange = 3f;  //distancia a la que el jugador puede interactuar con el vendedor
     private bool isPlayerInRange = false; //indica si el jugador está cerca del vendedor
@@ -40,4 +41,22 @@ public class StoreManager : MonoBehaviour
         storeUI.SetActive(!storeUI.activeSelf);  //cambia el estado de la tienda (activa/desactiva)
         Time.timeScale = storeUI.activeSelf ? 0 : 1; //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
     }
+
+    public void TryBuyItem(string itemType, int price)
+    {
+        //verifica si la referencia del InventoryManager está asignada
+        if (inventoryManager != null)
+        {
+            bool purchased = inventoryManager.BuyItem(itemType, price);
+            if (purchased)
+            {
+                Debug.Log("Compra exitosa!");
+            }
+        }
+        else
+        {
+            Debug.LogError("No se encontró una referencia de InventoryManager!");
+        }
+    }
+
 }

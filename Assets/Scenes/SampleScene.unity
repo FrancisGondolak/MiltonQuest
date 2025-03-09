@@ -768,7 +768,7 @@ MonoBehaviour:
   waterBottleSprite: {fileID: 21300000, guid: d2286779dac2a1341837e52ae28444bd, type: 3}
   appleHeartSprite: {fileID: 21300000, guid: 76f11409f5458a349b8df599c289eff8, type: 3}
   coins: 10
-  coinsText: {fileID: 0}
+  coinsText: {fileID: 1465398688}
 --- !u!4 &493356177
 Transform:
   m_ObjectHideFlags: 0
@@ -893,7 +893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.163, y: 0.291}
-  m_AnchoredPosition: {x: 85.9, y: -5.5}
+  m_AnchoredPosition: {x: 85.899994, y: -5.500002}
   m_SizeDelta: {x: 184, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618575814
@@ -1232,7 +1232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19967028, y: 0.32200003}
-  m_AnchoredPosition: {x: 88.700195, y: -7}
+  m_AnchoredPosition: {x: 88.700195, y: -6.999996}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892416950
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 902837055}
   - component: {fileID: 902837056}
   m_Layer: 0
-  m_Name: Milton
+  m_Name: Milton_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1548,7 +1548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.210682, y: 0.30100003}
-  m_AnchoredPosition: {x: 86.899994, y: -6.799999}
+  m_AnchoredPosition: {x: 86.899994, y: -6.7999973}
   m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984604362
@@ -1861,7 +1861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19825296, y: 0.291}
-  m_AnchoredPosition: {x: 86.200005, y: -6.600006}
+  m_AnchoredPosition: {x: 86.20002, y: -6.6000004}
   m_SizeDelta: {x: 181, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196086935
@@ -2582,7 +2582,7 @@ GameObject:
   - component: {fileID: 1731484166}
   - component: {fileID: 1731484169}
   m_Layer: 0
-  m_Name: Ruffus
+  m_Name: Ruffus_StoreManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2691,6 +2691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf51b60f22920c4fadf25c0d870f6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 493356176}
   storeUI: {fileID: 987493748}
   interactionRange: 3
 --- !u!1 &1918017951
@@ -2802,7 +2803,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 87, y: -7}
+  m_AnchoredPosition: {x: 86.99999, y: -6.9999924}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607

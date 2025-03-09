@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
     public int coins = 10; //monedas iniciales del jugador
-    public Text coinsText; //texto para la UI donde se mostrarán las monedas que tenemos
+    public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
 
