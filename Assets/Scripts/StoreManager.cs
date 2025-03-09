@@ -19,6 +19,7 @@ public class StoreManager : MonoBehaviour
         //asegura que la tienda está oculta al principio
         storeUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");  //localiza el objeto con el Tag "Player" (Milton)
+        UpdateSelectionHighlight();
     }
 
     void Update()
