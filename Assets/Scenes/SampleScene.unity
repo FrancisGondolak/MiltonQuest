@@ -199,6 +199,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 261250878595662455, guid: 5ad7ed1796c2c864ab9c4cd0bb25ef00, type: 3}
   m_PrefabInstance: {fileID: 5455139846068911261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &199403153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6860393834829137395, guid: 5ad7ed1796c2c864ab9c4cd0bb25ef00, type: 3}
+  m_PrefabInstance: {fileID: 5455139846068911261}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &221619300
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9426441, y: 0.88400006}
   m_AnchorMax: {x: 0.98, y: 0.9766483}
-  m_AnchoredPosition: {x: 0.3466797, y: 0.16906738}
+  m_AnchoredPosition: {x: 0.3466797, y: 0.16918945}
   m_SizeDelta: {x: 63.067993, y: 3.610962}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &221619302
@@ -772,7 +783,7 @@ MonoBehaviour:
   - {fileID: 1720348631}
   waterBottleSprite: {fileID: 21300000, guid: d2286779dac2a1341837e52ae28444bd, type: 3}
   appleHeartSprite: {fileID: 21300000, guid: 76f11409f5458a349b8df599c289eff8, type: 3}
-  coins: 10
+  coins: 100
   coinsText: {fileID: 1465398688}
 --- !u!4 &493356177
 Transform:
@@ -898,7 +909,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.163, y: 0.291}
-  m_AnchoredPosition: {x: 85.899994, y: -5.5000076}
+  m_AnchoredPosition: {x: 85.89998, y: -5.5000305}
   m_SizeDelta: {x: 184, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618575814
@@ -1237,7 +1248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19967028, y: 0.32200003}
-  m_AnchoredPosition: {x: 88.700195, y: -6.999996}
+  m_AnchoredPosition: {x: 88.700195, y: -6.9999847}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892416950
@@ -1793,7 +1804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9274788, y: 0.028625902}
   m_AnchorMax: {x: 0.98100007, y: 0.12214965}
-  m_AnchoredPosition: {x: -2.9996948, y: 2.9997559}
+  m_AnchoredPosition: {x: -2.9995117, y: 2.9997559}
   m_SizeDelta: {x: -2, y: -1}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1182211764
@@ -1868,7 +1879,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19825296, y: 0.291}
-  m_AnchoredPosition: {x: 86.20002, y: -6.600006}
+  m_AnchoredPosition: {x: 86.20003, y: -6.600006}
   m_SizeDelta: {x: 181, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196086935
@@ -1975,6 +1986,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8693207721441764241, guid: 584f92e714ce6a1448772456ebfb01eb, type: 3}
   m_PrefabInstance: {fileID: 984558833875114441}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1245729825 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7079812511772842122, guid: 584f92e714ce6a1448772456ebfb01eb, type: 3}
+  m_PrefabInstance: {fileID: 984558833875114441}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1315926855
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,7 +2063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.21978074, y: 0.13168223}
   m_AnchorMax: {x: 0.39363015, y: 0.8666589}
-  m_AnchoredPosition: {x: 0.29644775, y: 0.22415161}
+  m_AnchoredPosition: {x: 0.2965088, y: 0.22415161}
   m_SizeDelta: {x: 73.83418, y: 23.374298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1322694439
@@ -2706,6 +2728,13 @@ MonoBehaviour:
   inventoryManager: {fileID: 493356176}
   storeUI: {fileID: 987493748}
   interactionRange: 3
+  storeItems:
+  - itemType: AppleHeart
+    price: 10
+    itemImage: {fileID: 1245729825}
+  - itemType: WaterBottle
+    price: 12
+    itemImage: {fileID: 199403153}
 --- !u!1 &1918017951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,7 +2844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 86.99999, y: -6.9999924}
+  m_AnchoredPosition: {x: 87, y: -6.9999847}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607
@@ -3027,7 +3056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.022780724, y: 0.13168223}
   m_AnchorMax: {x: 0.20489039, y: 0.8666589}
-  m_AnchoredPosition: {x: 0.100753784, y: 0.22415161}
+  m_AnchoredPosition: {x: 0.100738525, y: 0.22415161}
   m_SizeDelta: {x: 74.54089, y: 23.374298}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2073529839

@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
-    public int coins = 10; //monedas iniciales del jugador
+    public int coins = 100; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
@@ -16,11 +16,6 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
         UpdateInventoryUI();
-        AddItem("WaterBottle");
-        AddItem("AppleHeart");
-        AddItem("AppleHeart");
-        AddItem("WaterBottle");
-        AddItem("AppleHeart");
     }
 
     void Update()
@@ -42,12 +37,6 @@ public class InventoryManager : MonoBehaviour
     //Método que añade un objeto al inventario
     public bool AddItem(string itemType)
     {
-        if (items.Count >= 5)
-        {
-            Debug.Log("Inventario lleno. No puedes comprar más objetos.");
-            return false;
-        }
-
         //Controlar qué icono agregamos al inventario
         Sprite itemSprite = null;
         if (itemType == "WaterBottle")
@@ -89,10 +78,17 @@ public class InventoryManager : MonoBehaviour
     {
         if (coins >= price)  //si tiene suficientes monedas
         {
-            coins -= price;  //descontamos las monedas
-            AddItem(itemType);  //añadimos el objeto al inventario
+            //verificamos si hay espacio en el inventario
+            if (items.Count >= 5)  //si el inventario está lleno
+            {
+                Debug.Log("Inventario lleno. No puedes comprar más objetos.");
+                return false; //retorna false, no nos permite comprar más objetos
+            }
+
+            coins -= price;  // Descontamos las monedas
+            AddItem(itemType);  // Añadimos el objeto al inventario
             Debug.Log($"Compraste un {itemType}. Te quedan {coins} monedas.");
-            return true;
+            return true;  // Compra exitosa
         }
         else
         {
