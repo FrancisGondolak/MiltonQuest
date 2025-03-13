@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
-public class MiltonMovement : MonoBehaviour
+public class MiltonLogic : MonoBehaviour
 {
 
     public float moveSpeed = 5f;
@@ -14,11 +15,26 @@ public class MiltonMovement : MonoBehaviour
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
 
-    private Rigidbody rb;
+    public int maxHealth = 3; //vida máxima de Milton (3 corazanas)
+    private int currentHealth; //vida actual
+    public Image[] heartIcons; //array de imágenes de los corazones en la UI
+    public Sprite fullHeartSprite; //sprite de corazón lleno
+    public Sprite bittenHeartSprite; //sprite de corazón mordisqueado
+
+    public Animator animator; //Animator para la animación de daño y muerte
+    public float knockbackForce = 5f; //fuerza de retroceso al recibir daño
+
+    public GameObject gameOverMenu; //menú de Game Over
+    private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
+
+    private Rigidbody rb;//variable que va a contener el objeto Milton
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        currentHealth = maxHealth;
+        UpdateHeartsUI();
+        gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
     }
 
     void Update()
@@ -110,6 +126,73 @@ public class MiltonMovement : MonoBehaviour
 
         isFlipping = false; //permite que la animación de giro pueda ejecutarse nuevamente en el futuro
 
+    }
+
+    //método para recibir daño
+    public void TakeDamage(Vector2 damageSource)
+    {
+        if (isDead)
+        {
+            return; //evitar daño si ya está muerto
+        }
+
+        currentHealth--;
+        UpdateHeartsUI();
+
+        //animación de daño
+        animator.SetTrigger("Hurt");
+
+        //retroceso (Knockback)
+        Vector2 knockbackDirection = (transform.position - (Vector3)damageSource).normalized;
+        rb.linearVelocity = knockbackDirection * knockbackForce;
+
+        //si la vida llega a 0, activar método Die() para el Game Over
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    //método para actualizar la UI de corazanas
+    void UpdateHeartsUI()
+    {
+        for (int i = 0; i < heartIcons.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                heartIcons[i].sprite = fullHeartSprite; //corazana llena
+            }
+            else
+            {
+                heartIcons[i].sprite = bittenHeartSprite; //corazana mordisqueada
+            }
+        }
+    }
+
+    //método para restaurar vida al usar la corazana
+    public void Heal()
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth++;
+            UpdateHeartsUI();
+        }
+    }
+
+    //método para la animación de muerte y Game Over
+    void Die()
+    {
+        isDead = true;
+        animator.SetTrigger("Die");
+        rb.linearVelocity = Vector2.zero; //detener movimiento
+        StartCoroutine(ShowGameOverMenu());
+    }
+
+    //corrutina para mostrar el menú de Game Over después de la animación
+    IEnumerator ShowGameOverMenu()
+    {
+        yield return new WaitForSeconds(1.5f); //espera 1.5 segundos para que termine la animación de muerte
+        gameOverMenu.SetActive(true);
     }
 
 }
