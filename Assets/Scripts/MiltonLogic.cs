@@ -27,11 +27,22 @@ public class MiltonLogic : MonoBehaviour
     public GameObject gameOverMenu; //menú de Game Over
     private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
 
+    private bool isInvulnerable = false; //para evitar recibir daño en bucle
+    public float invulnerabilityDuration = 3f; //duración de la invulnerabilidad
+    public float knockbackDuration = 0.3f; //tiempo de retroceso
+    public Color invulnerableColor = new Color(1f, 1f, 1f, 0.5f); //color semi-transparente cuando es invulnerable
+    private Color originalColor; //para restaurar el color original
+    private SpriteRenderer spriteRenderer; //referencia al SpriteRenderer
+    private Collider miltonCollider; //referencia al Collider de Milton
+
     private Rigidbody rb;//variable que va a contener el objeto Milton
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        miltonCollider = GetComponent<Collider>(); //obtener el Collider de Milton
+        spriteRenderer = GetComponent<SpriteRenderer>(); //obtiene el SpriteRenderer
+        originalColor = spriteRenderer.color; //guarda el color original
         currentHealth = maxHealth;
         UpdateHeartsUI();
         gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
@@ -131,7 +142,7 @@ public class MiltonLogic : MonoBehaviour
     //método para recibir daño
     public void TakeDamage(Vector2 damageSource)
     {
-        if (isDead)
+        if (isDead || isInvulnerable)
         {
             return; //evitar daño si ya está muerto
         }
@@ -140,16 +151,20 @@ public class MiltonLogic : MonoBehaviour
         UpdateHeartsUI();
 
         //animación de daño
-        animator.SetTrigger("Hurt");
+        //animator.SetTrigger("Hurt");
 
-        //retroceso (Knockback)
-        Vector2 knockbackDirection = (transform.position - (Vector3)damageSource).normalized;
-        rb.linearVelocity = knockbackDirection * knockbackForce;
+        //activa el retroceso hacia atrás de Milton cuando recibe daño
+        Vector3 knockbackDirection = (transform.position - new Vector3(damageSource.x, transform.position.y, damageSource.y)).normalized;
+        StartCoroutine(ApplyKnockback(knockbackDirection));
+
+        //activa la invulnerabilidad durante un segundo y medio tras recibir daño
+        StartCoroutine(InvulnerabilityFrames());
 
         //si la vida llega a 0, activar método Die() para el Game Over
         if (currentHealth <= 0)
         {
-            Die();
+            Debug.Log("Milton murió");
+            //Die();
         }
     }
 
@@ -177,6 +192,50 @@ public class MiltonLogic : MonoBehaviour
             currentHealth++;
             UpdateHeartsUI();
         }
+    }
+
+    IEnumerator ApplyKnockback(Vector3 direction)
+    {
+        float timer = 0;
+        while (timer < knockbackDuration)
+        {
+            rb.linearVelocity = direction * knockbackForce; // Aplica la fuerza de retroceso
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        rb.linearVelocity = Vector3.zero; // Detiene el empuje después del tiempo definido
+    }
+
+    IEnumerator InvulnerabilityFrames()
+    {
+        isInvulnerable = true;
+        spriteRenderer.color = invulnerableColor; // Cambia el color a semi-transparente
+
+        // Buscar a todos los enemigos en la escena y desactivar colisiones con ellos
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Collider enemyCollider = enemy.GetComponent<Collider>();
+            if (enemyCollider != null)
+            {
+                Physics.IgnoreCollision(miltonCollider, enemyCollider, true);
+            }
+        }
+
+        yield return new WaitForSeconds(invulnerabilityDuration); // Espera el tiempo de invulnerabilidad
+
+        // Restaurar colisiones después de la invulnerabilidad
+        foreach (GameObject enemy in enemies)
+        {
+            Collider enemyCollider = enemy.GetComponent<Collider>();
+            if (enemyCollider != null)
+            {
+                Physics.IgnoreCollision(miltonCollider, enemyCollider, false);
+            }
+        }
+
+        spriteRenderer.color = originalColor; // Restaura el color original
+        isInvulnerable = false;
     }
 
     //método para la animación de muerte y Game Over
