@@ -10,6 +10,8 @@ public class InventoryManager : MonoBehaviour
     public Sprite appleHeartSprite;  //Icono para la coranzana
     public int coins = 100; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
+    public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
+    public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
 
@@ -58,14 +60,32 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    //Método para consumir un objeto en una casilla específica
+    //método para consumir un objeto en una casilla específica
     public void UseItemAt(int index)
     {
         if (index < items.Count) //verifica si la casilla seleccionada tiene un objeto
         {
-            Debug.Log($"Usaste el objeto en la casilla {index + 1}");
-            items.RemoveAt(index); //elimina el objeto seleccionado
-            UpdateInventoryUI();  //actualiza la UI
+            Sprite usedItem = items[index]; //obtiene el objeto que se ha usado
+
+            //comprueba si es una corazana o una botella de agua
+            if (usedItem == appleHeartSprite && milton.currentHealth < milton.maxHealth)
+            {
+                Debug.Log("Usaste una corazana");
+                milton.Heal(); //llama al método Heal() situado en MiltonLogic
+                items.RemoveAt(index); //elimina el objeto seleccionado
+                UpdateInventoryUI();  //actualiza la UI
+            }
+            else if (usedItem == waterBottleSprite)
+            {
+                Debug.Log("Usaste una botella de agua");
+                waterCounter.AddWater(20);
+                items.RemoveAt(index); //elimina el objeto seleccionado
+                UpdateInventoryUI();  //actualiza la UI
+            }
+            else
+            {
+                Debug.Log("Milton tiene la vida llena");
+            }   
         }
         else
         {
