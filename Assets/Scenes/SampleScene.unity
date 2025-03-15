@@ -911,7 +911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.163, y: 0.291}
-  m_AnchoredPosition: {x: 85.89995, y: -5.5000496}
+  m_AnchoredPosition: {x: 85.89995, y: -5.5000687}
   m_SizeDelta: {x: 184, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618575814
@@ -1047,7 +1047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22851999, y: 0.89314514}
   m_AnchorMax: {x: 0.29155993, y: 0.98036283}
-  m_AnchoredPosition: {x: -4.000122, y: -3}
+  m_AnchoredPosition: {x: -4.000061, y: -3}
   m_SizeDelta: {x: 15.067993, y: 10.610962}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &626585965
@@ -1250,7 +1250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19967028, y: 0.32200003}
-  m_AnchoredPosition: {x: 88.70018, y: -6.999958}
+  m_AnchoredPosition: {x: 88.70018, y: -6.9999657}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892416950
@@ -1578,7 +1578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.210682, y: 0.30100003}
-  m_AnchoredPosition: {x: 86.899994, y: -6.800003}
+  m_AnchoredPosition: {x: 86.899994, y: -6.800007}
   m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984604362
@@ -1893,7 +1893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19825296, y: 0.291}
-  m_AnchoredPosition: {x: 86.200005, y: -6.600025}
+  m_AnchoredPosition: {x: 86.20001, y: -6.6000443}
   m_SizeDelta: {x: 181, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1196086935
@@ -2726,7 +2726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 86.999954, y: -7.0000114}
+  m_AnchoredPosition: {x: 86.99993, y: -7.000019}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607
@@ -3381,6 +3381,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
+      propertyPath: keyPrefab
+      value: 
+      objectReference: {fileID: 4097551805578741044, guid: 20326ba65e01c7a4b85a364476091317, type: 3}
+    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
+      propertyPath: coinPrefab
+      value: 
+      objectReference: {fileID: 5892236070322368761, guid: b278007a2ba2d89459380bb7619f385d, type: 3}
+    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
+      propertyPath: littleWaterBottlePrefab
+      value: 
+      objectReference: {fileID: 7011319039251046551, guid: 6e49cc75a6ce60346a98195e939e49ad, type: 3}
     - target: {fileID: 4455684938575869301, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
       propertyPath: m_Name
       value: Mudler_Enemy

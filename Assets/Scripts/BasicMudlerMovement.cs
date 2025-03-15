@@ -7,6 +7,13 @@ public class BasicMudlerMovement : MonoBehaviour
     public int health = 3; //vida del enemigo
     private Rigidbody rb;
 
+    public GameObject coinPrefab; //prefab de la moneda
+    public GameObject littleWaterBottlePrefab; //prefab de la botella de agua pequeña
+    public GameObject keyPrefab; //prefab de la llave
+
+    public static int enemiesDefeated = 0; //contador de Mudlers derrotados por Milton
+    public int[] enemiesWithKey = {1,3,6,7}; //números en los que los enemigos tienen que soltar la llave del nivel (en la primera sala el enemigo que hay, en la segunda los dos, en la 4 los 3 y en la última el Mudler especial)
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,7 +54,33 @@ public class BasicMudlerMovement : MonoBehaviour
 
         if (health <= 0)
         {
+            DropItems();
             Destroy(gameObject); //elimina al enemigo si su vida llega a 0
         }
+    }
+
+    void DropItems()
+    {
+        enemiesDefeated++; //aumenta el contador de enemigos derrotados
+
+        //suelta una moneda
+        Instantiate(coinPrefab, transform.position, Quaternion.identity);
+
+        //suelta una botella de munición
+        Instantiate(littleWaterBottlePrefab, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+
+        //si este enemigo derrotado coincide con alguno de los números del array de enemigos con llave, suelta la llave
+        bool found = false;
+        int counter = 0;
+
+        while (!found && counter < enemiesWithKey.Length)
+        {
+            if (enemiesWithKey[counter] == enemiesDefeated)
+            {
+                Instantiate(keyPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                found = true;
+            }
+        }
+            
     }
 }
