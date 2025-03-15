@@ -6,12 +6,11 @@ public class WaterCounterUI : MonoBehaviour
 {
     public Image waterImage; //la imagen del estómago con agua
     public TextMeshProUGUI waterText; //el texto con el número de disparos
-    public int maxWater = 50; //máximo de disparos
-    private int currentWater; //disparos actuales
+    public int currentWater; //disparos actuales
 
     void Start()
     {
-        currentWater = maxWater; //empieza con el agua llena
+        currentWater = 50; //empieza con el agua a 50 puntos
         UpdateUI();
     }
 
@@ -37,10 +36,10 @@ public class WaterCounterUI : MonoBehaviour
         }
     }
 
-    //función para añadir más disparos al contador al recoger botellas de agua
+    //función para añadir más disparos al contador al recoger/usar botellas de agua
     public void AddWater(int amount)
     {
-        currentWater = Mathf.Min(currentWater + amount, maxWater);
+        currentWater += amount;
         UpdateUI();
     }
 }

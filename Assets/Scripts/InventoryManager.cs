@@ -10,7 +10,8 @@ public class InventoryManager : MonoBehaviour
     public Sprite appleHeartSprite;  //Icono para la coranzana
     public int coins = 100; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
-    public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida/munición al usar objetos 
+    public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
+    public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
 
@@ -77,7 +78,7 @@ public class InventoryManager : MonoBehaviour
             else if (usedItem == waterBottleSprite)
             {
                 Debug.Log("Usaste una botella de agua");
-                //aqui va la lógica para sumar munición de agua
+                waterCounter.AddWater(20);
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
             }
