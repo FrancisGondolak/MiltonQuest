@@ -158,9 +158,8 @@ public class MiltonLogic : MonoBehaviour
         if (other.gameObject.CompareTag("Key"))
         {
             Destroy(other.gameObject);
-            Debug.Log("¡Has recogido la llave del nivel!");
-            
-            //AGREGAR AQUÍ LA LÓGICA QUE AFECTA A RECOGER/USAR LA LLAVE DE LA SALA
+            inventoryManager.hasKey = true;
+            inventoryManager.UpdateInventoryUI();
         }
     }
 

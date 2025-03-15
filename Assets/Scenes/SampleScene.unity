@@ -787,6 +787,7 @@ MonoBehaviour:
   coinsText: {fileID: 1465398688}
   milton: {fileID: 902837055}
   waterCounter: {fileID: 2112835356}
+  key: {fileID: 221619302}
 --- !u!4 &493356177
 Transform:
   m_ObjectHideFlags: 0

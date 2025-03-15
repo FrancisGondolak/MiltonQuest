@@ -12,8 +12,10 @@ public class InventoryManager : MonoBehaviour
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
     public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
     public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
+    public Image key;
 
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
+    public bool hasKey = false;//variable para controlar si tenemos la llave o no. La cambiamos desde el Script de Milton al recoger la llave o usarla en la puerta
 
     void Start()
     {
@@ -122,15 +124,25 @@ public class InventoryManager : MonoBehaviour
         {
             if (i < items.Count)
             {
-                slots[i].sprite = items[i];  //Asigna el icono del objeto
-                slots[i].enabled = true;     //Activa la imagen
+                slots[i].sprite = items[i];  //asigna el icono del objeto
+                slots[i].enabled = true;     //activa la imagen
             }
             else
             {
-                slots[i].sprite = null;  //Borra el icono
-                slots[i].enabled = false; //Oculta la imagen
+                slots[i].sprite = null;  //borra el icono
+                slots[i].enabled = false; //oculta la imagen
             }
         }
+
+        SetKeyTransparency(hasKey ? 1f : 0.1f);
+    }
+
+    //método para cambiar la transparencia de la llave dependiendo de si la hemos recogido o no
+    private void SetKeyTransparency(float alpha)
+    {
+        Color keyColor = key.color;
+        keyColor.a = alpha;
+        key.color = keyColor;
     }
 }
 
