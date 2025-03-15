@@ -7,6 +7,9 @@ TagManager:
   - Wall
   - Projectile
   - Enemy
+  - Coin
+  - LittleWaterBottle
+  - Key
   layers:
   - Default
   - TransparentFX

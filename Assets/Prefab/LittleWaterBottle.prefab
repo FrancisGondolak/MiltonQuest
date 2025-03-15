@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3249571591957632665}
   m_Layer: 0
   m_Name: LittleWaterBottle
-  m_TagString: Untagged
+  m_TagString: LittleWaterBottle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7011319039251046551}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5603589ca959ec643af52904b83a3de0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -118,7 +118,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7011319039251046551}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.9
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
