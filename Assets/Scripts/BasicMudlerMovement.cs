@@ -48,7 +48,7 @@ public class BasicMudlerMovement : MonoBehaviour
         }
     }
 
-    void TakeDamage()
+    private void TakeDamage()
     {
         health--;
 
@@ -59,21 +59,31 @@ public class BasicMudlerMovement : MonoBehaviour
         }
     }
 
-    void DropItems()
+    private void DropItems()
     {
         enemiesDefeated++; //aumenta el contador de enemigos derrotados
 
         //suelta una moneda
-        Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        AddJumpEffect(coin);
 
         //suelta una botella de munición
-        Instantiate(littleWaterBottlePrefab, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+        GameObject littleWaterBottle = Instantiate(littleWaterBottlePrefab, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+        AddJumpEffect(littleWaterBottle);
 
         //si este enemigo derrotado coincide con alguno de los números del array de enemigos con llave, suelta la llave
         if (System.Array.Exists(enemiesWithKey, element => element == enemiesDefeated))
         {
-            Instantiate(keyPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            GameObject key = Instantiate(keyPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            AddJumpEffect(key);
         }
 
+    }
+
+    private void AddJumpEffect(GameObject obj)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+
+        rb.AddForce(new Vector3(Random.Range(-1f, 1f), 5f, Random.Range(-1f, 1f)), ForceMode.Impulse);
     }
 }
