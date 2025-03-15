@@ -70,17 +70,10 @@ public class BasicMudlerMovement : MonoBehaviour
         Instantiate(littleWaterBottlePrefab, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
 
         //si este enemigo derrotado coincide con alguno de los números del array de enemigos con llave, suelta la llave
-        bool found = false;
-        int counter = 0;
-
-        while (!found && counter < enemiesWithKey.Length)
+        if (System.Array.Exists(enemiesWithKey, element => element == enemiesDefeated))
         {
-            if (enemiesWithKey[counter] == enemiesDefeated)
-            {
-                Instantiate(keyPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                found = true;
-            }
+            Instantiate(keyPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
         }
-            
+
     }
 }
