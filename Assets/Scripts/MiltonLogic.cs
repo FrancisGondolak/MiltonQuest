@@ -16,7 +16,7 @@ public class MiltonLogic : MonoBehaviour
     public float flipSpeed = 0.2f; //velocidad del giro
 
     public int maxHealth = 3; //vida máxima de Milton (3 corazanas)
-    private int currentHealth; //vida actual
+    public int currentHealth; //vida actual
     public Image[] heartIcons; //array de imágenes de los corazones en la UI
     public Sprite fullHeartSprite; //sprite de corazón lleno
     public Sprite bittenHeartSprite; //sprite de corazón mordisqueado
@@ -38,7 +38,7 @@ public class MiltonLogic : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        miltonCollider = GetComponent<Collider>(); //obtener el Collider de Milton
+        miltonCollider = GetComponent<Collider>(); //obtiene el Collider de Milton
         spriteRenderer = GetComponent<SpriteRenderer>(); //obtiene el SpriteRenderer
         originalColor = spriteRenderer.color; //guarda el color original del SpriteRenderer de Milton
         currentHealth = maxHealth;
@@ -185,6 +185,10 @@ public class MiltonLogic : MonoBehaviour
         {
             currentHealth++;
             UpdateHeartsUI();
+        }
+        else
+        {
+            Debug.Log("Vida de Milton completa");
         }
     }
 
