@@ -22,14 +22,12 @@ public class MiltonLogic : MonoBehaviour
     public Sprite bittenHeartSprite; //sprite de corazón mordisqueado
 
     public Animator animator; //Animator para la animación de daño y muerte
-    public float knockbackForce = 5f; //fuerza de retroceso al recibir daño
 
     public GameObject gameOverMenu; //menú de Game Over
     private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
 
     private bool isInvulnerable = false; //para evitar recibir daño en bucle
-    public float invulnerabilityDuration = 3f; //duración de la invulnerabilidad
-    public float knockbackDuration = 0.3f; //tiempo de retroceso
+    public float invulnerabilityDuration = 3f; //duración de la invulnerabilidad tras recibir daño
     public Color invulnerableColor = new Color(1f, 1f, 1f, 0.5f); //color semi-transparente cuando es invulnerable
     private Color originalColor; //para restaurar el color original
     private SpriteRenderer spriteRenderer; //referencia al SpriteRenderer
@@ -42,7 +40,7 @@ public class MiltonLogic : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         miltonCollider = GetComponent<Collider>(); //obtener el Collider de Milton
         spriteRenderer = GetComponent<SpriteRenderer>(); //obtiene el SpriteRenderer
-        originalColor = spriteRenderer.color; //guarda el color original
+        originalColor = spriteRenderer.color; //guarda el color original del SpriteRenderer de Milton
         currentHealth = maxHealth;
         UpdateHeartsUI();
         gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
@@ -92,7 +90,7 @@ public class MiltonLogic : MonoBehaviour
 
             waterBallRb.linearVelocity = new Vector3(direction * waterBallSpeed, 0, 0);
 
-            //firamos el sprite del disparo de agua si mira a la izquierda
+            //giramos el sprite del disparo de agua si mira a la izquierda
             if (facingLeft)
             {
                 waterBall.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -153,11 +151,7 @@ public class MiltonLogic : MonoBehaviour
         //animación de daño
         //animator.SetTrigger("Hurt");
 
-        //activa el retroceso hacia atrás de Milton cuando recibe daño
-        Vector3 knockbackDirection = (transform.position - new Vector3(damageSource.x, transform.position.y, damageSource.y)).normalized;
-        StartCoroutine(ApplyKnockback(knockbackDirection));
-
-        //activa la invulnerabilidad durante un segundo y medio tras recibir daño
+        //activa la invulnerabilidad durante tres segundos tras recibir daño
         StartCoroutine(InvulnerabilityFrames());
 
         //si la vida llega a 0, activar método Die() para el Game Over
@@ -194,24 +188,12 @@ public class MiltonLogic : MonoBehaviour
         }
     }
 
-    IEnumerator ApplyKnockback(Vector3 direction)
-    {
-        float timer = 0;
-        while (timer < knockbackDuration)
-        {
-            rb.linearVelocity = direction * knockbackForce; // Aplica la fuerza de retroceso
-            timer += Time.deltaTime;
-            yield return null;
-        }
-        rb.linearVelocity = Vector3.zero; // Detiene el empuje después del tiempo definido
-    }
-
     IEnumerator InvulnerabilityFrames()
     {
         isInvulnerable = true;
-        spriteRenderer.color = invulnerableColor; // Cambia el color a semi-transparente
+        spriteRenderer.color = invulnerableColor; //cambia el color a semi-transparente
 
-        // Buscar a todos los enemigos en la escena y desactivar colisiones con ellos
+        //buscar a todos los enemigos en la escena y desactivar colisiones con ellos
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
@@ -222,9 +204,9 @@ public class MiltonLogic : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(invulnerabilityDuration); // Espera el tiempo de invulnerabilidad
+        yield return new WaitForSeconds(invulnerabilityDuration); //espera el tiempo de invulnerabilidad
 
-        // Restaurar colisiones después de la invulnerabilidad
+        //restaurar colisiones después de la invulnerabilidad
         foreach (GameObject enemy in enemies)
         {
             Collider enemyCollider = enemy.GetComponent<Collider>();
@@ -234,7 +216,7 @@ public class MiltonLogic : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = originalColor; // Restaura el color original
+        spriteRenderer.color = originalColor; //restaura el color original del sprite de Milton
         isInvulnerable = false;
     }
 

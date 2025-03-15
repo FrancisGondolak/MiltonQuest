@@ -10,7 +10,7 @@ public class BasicMudlerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true; // Para que no sea afectado por fuerzas externas
+        rb.isKinematic = true; //para que no sea afectado por fuerzas externas
     }
 
     private void Update()
@@ -21,20 +21,20 @@ public class BasicMudlerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Si choca con una pared, cambia de dirección
+        //si choca con una pared, cambia de dirección
         if (other.CompareTag("Wall"))
         {
             direction *= -1;
         }
 
-        // Si es un disparo de Milton, recibe daño
+        //si es un disparo de Milton, recibe daño
         if (other.CompareTag("Projectile"))
         {
             TakeDamage();
-            Destroy(other.gameObject); // Destruye la bala
+            Destroy(other.gameObject); //destruye la bala al ser recibida
         }
 
-        // Si choca con Milton, puede hacer daño o empujarlo (según lo que prefieras)
+        //si choca con Milton, le hace daño (método en el Script de Milton)
         if (other.CompareTag("Player"))
         {
             other.GetComponent<MiltonLogic>().TakeDamage(transform.position);
@@ -47,7 +47,7 @@ public class BasicMudlerMovement : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject); // Elimina al enemigo si su vida llega a 0
+            Destroy(gameObject); //elimina al enemigo si su vida llega a 0
         }
     }
 }
