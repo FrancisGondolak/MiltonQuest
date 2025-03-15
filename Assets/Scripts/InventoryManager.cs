@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
-    public int coins = 100; //monedas iniciales del jugador
+    public int coins = 50; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
     public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
     public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
@@ -29,11 +29,6 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) UseItemAt(3);
         if (Input.GetKeyDown(KeyCode.Alpha5)) UseItemAt(4);
 
-        //actualiza el texto de las monedas en la UI
-        if (coinsText != null)
-        {
-            coinsText.text = coins.ToString();
-        }
     }
 
     //Método que añade un objeto al inventario
@@ -118,8 +113,11 @@ public class InventoryManager : MonoBehaviour
     }
 
     //Método para actualizar la UI del inventario
-    void UpdateInventoryUI()
+    public void UpdateInventoryUI()
     {
+        //actualiza el número de monedas
+        coinsText.text = coins.ToString();
+
         for (int i = 0; i < slots.Count; i++)
         {
             if (i < items.Count)

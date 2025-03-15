@@ -10,7 +10,8 @@ public class MiltonLogic : MonoBehaviour
     public Transform firePoint; //punto desde donde se origina el disparo
     public float waterBallSpeed = 10f;
     private bool facingLeft = false; //booleano para saber en qué dirección mira Milton. De inicio en false porque mira a la derecha
-    public WaterCounterUI waterCounter; //asignamos el contador de agua para que sea afectado cuando Milton dispare o recoja/use botellas de agua
+    public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
+    public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -135,6 +136,32 @@ public class MiltonLogic : MonoBehaviour
 
         isFlipping = false; //permite que la animación de giro pueda ejecutarse nuevamente en el futuro
 
+    }
+
+    //método para recoger los objetos que dejen caer los enemigos
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+            inventoryManager.coins += 1; //aumenta el contador de monedas
+            inventoryManager.UpdateInventoryUI(); //llama al método del inventario para actualizarlo con las monedas sumadas
+        }
+
+        if (other.gameObject.CompareTag("LittleWaterBottle"))
+        {
+            Destroy(other.gameObject);
+            waterCounter.currentWater += 5; //aumenta la munición de agua al recoger botellas pequeñas
+            waterCounter.UpdateUI(); //llama al método del contador de Agua para actualizar la munición
+        }
+
+        if (other.gameObject.CompareTag("Key"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("¡Has recogido la llave del nivel!");
+            
+            //AGREGAR AQUÍ LA LÓGICA QUE AFECTA A RECOGER/USAR LA LLAVE DE LA SALA
+        }
     }
 
     //método para recibir daño
