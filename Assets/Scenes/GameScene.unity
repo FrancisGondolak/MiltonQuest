@@ -788,6 +788,7 @@ MonoBehaviour:
   milton: {fileID: 902837055}
   waterCounter: {fileID: 2112835356}
   key: {fileID: 221619302}
+  hasKey: 0
 --- !u!4 &493356177
 Transform:
   m_ObjectHideFlags: 0
@@ -1048,7 +1049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.22851999, y: 0.89314514}
   m_AnchorMax: {x: 0.29155993, y: 0.98036283}
-  m_AnchoredPosition: {x: -4.000061, y: -3}
+  m_AnchoredPosition: {x: -4.000122, y: -3}
   m_SizeDelta: {x: 15.067993, y: 10.610962}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &626585965
@@ -2728,7 +2729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 86.99993, y: -7.000023}
+  m_AnchoredPosition: {x: 86.99992, y: -7.000023}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607
