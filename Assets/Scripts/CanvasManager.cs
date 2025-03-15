@@ -4,80 +4,55 @@ using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject menuPrincipal;
-    public GameObject historiaCanvas;
-    public GameObject controlesCanvas;
-    public GameObject pausaCanvas;
-    public GameObject gameOverCanvas;
+    public GameObject mainMenu;
+    public GameObject historyMenu;
+    public GameObject controlsMenu;
+    public GameObject gameOverMenu;
 
     void Start()
     {
-        //mostrar el Menú Inicial al principio del juego, los demás canvas que no se muestren
-        menuPrincipal.SetActive(true);
-        historiaCanvas.SetActive(false);
-        controlesCanvas.SetActive(false);
-        pausaCanvas.SetActive(false);
-        gameOverCanvas.SetActive(false);
+        //mostrar el menú principal al inicio
+        mainMenu.SetActive(true);
+        historyMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        gameOverMenu.SetActive(false);
     }
 
     //método para ir al canvas de historia
-    public void IrAHistoria()
+    public void OpenHistoryCanvas()
     {
-        menuPrincipal.SetActive(false);
-        historiaCanvas.SetActive(true);
+        mainMenu.SetActive(false);
+        historyMenu.SetActive(true);
     }
 
-    //método para ir al canvas de controles
-    public void IrAControles()
+    //Método para ir al canvas de controles
+    public void OpenControlsCanvas()
     {
-        historiaCanvas.SetActive(false);
-        controlesCanvas.SetActive(true);
+        historyMenu.SetActive(false);
+        controlsMenu.SetActive(true);
     }
 
-    //método para comenzar la partida
-    public void ComenzarJuego()
+    //método para comenzar el juego
+    public void BeginGame()
     {
-        controlesCanvas.SetActive(false);
-        SceneManager.LoadScene("JuegoScene");
+        SceneManager.LoadScene("GameScene");
     }
 
-    //método para mostrar el menú de pausa
-    public void MostrarPausa()
+    //método para mostrar el canvas de Game Over
+    public void OpenGameOverCanvas()
     {
-        pausaCanvas.SetActive(true);
-        Time.timeScale = 0;  //pausar el juego
-    }
-
-    //método para continuar el juego
-    public void ContinuarJuego()
-    {
-        pausaCanvas.SetActive(false);
-        Time.timeScale = 1;  //reanudar el juego
-    }
-
-    //método para ir al Menú Principal desde el de pausa
-    public void VolverMenuPrincipal()
-    {
-        pausaCanvas.SetActive(false);
-        menuPrincipal.SetActive(true);
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    //método para mostrar el menú de Game Over
-    public void MostrarGameOver()
-    {
-        gameOverCanvas.SetActive(true);
+        gameOverMenu.SetActive(true);
     }
 
     //método para reiniciar el juego
-    public void ReiniciarJuego()
+    public void ReloadGame()
     {
-        gameOverCanvas.SetActive(false);
-        SceneManager.LoadScene("JuegoScene");
+        gameOverMenu.SetActive(false);
+        SceneManager.LoadScene("GameScene");
     }
 
     //método para salir del juego
-    public void SalirDelJuego()
+    public void QuitGame()
     {
         Application.Quit();
     }
