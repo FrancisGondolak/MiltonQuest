@@ -144,7 +144,7 @@ public class MiltonLogic : MonoBehaviour
         if (other.gameObject.CompareTag("Coin"))
         {
             Destroy(other.gameObject);
-            inventoryManager.coins += 1; //aumenta el contador de monedas
+            inventoryManager.coins += 5; //aumenta el contador de monedas
             inventoryManager.UpdateInventoryUI(); //llama al método del inventario para actualizarlo con las monedas sumadas
         }
 
