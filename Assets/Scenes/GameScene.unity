@@ -1704,7 +1704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.163, y: 0.291}
-  m_AnchoredPosition: {x: 85.89996, y: -5.500061}
+  m_AnchoredPosition: {x: 85.899956, y: -5.500061}
   m_SizeDelta: {x: 184, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618575814
@@ -2369,9 +2369,9 @@ MonoBehaviour:
   - {fileID: 626585965}
   fullHeartSprite: {fileID: 21300000, guid: 76f11409f5458a349b8df599c289eff8, type: 3}
   bittenHeartSprite: {fileID: 21300000, guid: 9bb9a81b4ca6a2f49aceca137e5dba49, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 902837056}
   gameOverMenu: {fileID: 0}
-  invulnerabilityDuration: 3
+  invulnerabilityDuration: 2
   invulnerableColor: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!95 &902837056
 Animator:
@@ -4142,7 +4142,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 86.99992, y: -7.0000324}
+  m_AnchoredPosition: {x: 86.99992, y: -7.0000343}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607

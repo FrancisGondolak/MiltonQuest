@@ -28,7 +28,7 @@ public class MiltonLogic : MonoBehaviour
     private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
 
     private bool isInvulnerable = false; //para evitar recibir daño en bucle
-    public float invulnerabilityDuration = 3f; //duración de la invulnerabilidad tras recibir daño
+    public float invulnerabilityDuration = 2f; //duración de la invulnerabilidad tras recibir daño
     public Color invulnerableColor = new Color(1f, 1f, 1f, 0.5f); //color semi-transparente cuando es invulnerable
     private Color originalColor; //para restaurar el color original
     private SpriteRenderer spriteRenderer; //referencia al SpriteRenderer
@@ -174,9 +174,6 @@ public class MiltonLogic : MonoBehaviour
         currentHealth--;
         UpdateHeartsUI();
 
-        //animación de daño
-        //animator.SetTrigger("Hurt");
-
         //activa la invulnerabilidad durante tres segundos tras recibir daño
         StartCoroutine(InvulnerabilityFrames());
 
@@ -221,7 +218,9 @@ public class MiltonLogic : MonoBehaviour
     IEnumerator InvulnerabilityFrames()
     {
         isInvulnerable = true;
-        spriteRenderer.color = invulnerableColor; //cambia el color a semi-transparente
+
+        //animación de daño
+        animator.SetBool("isHurt", true);
 
         //buscar a todos los enemigos en la escena y desactivar colisiones con ellos
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -246,7 +245,7 @@ public class MiltonLogic : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = originalColor; //restaura el color original del sprite de Milton
+        animator.SetBool("isHurt", false);
         isInvulnerable = false;
     }
 
