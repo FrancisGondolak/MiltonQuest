@@ -12,6 +12,7 @@ public class MiltonLogic : MonoBehaviour
     private bool facingLeft = false; //booleano para saber en qué dirección mira Milton. De inicio en false porque mira a la derecha
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
+    public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -22,16 +23,14 @@ public class MiltonLogic : MonoBehaviour
     public Sprite fullHeartSprite; //sprite de corazón lleno
     public Sprite bittenHeartSprite; //sprite de corazón mordisqueado
 
-    public Animator animator; //Animator para la animación de daño y muerte
+    public Animator animator; //Animator para cambiar entre las distintas animaciones
 
     public GameObject gameOverMenu; //menú de Game Over
     private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
+    public bool isMoving = false;
 
     private bool isInvulnerable = false; //para evitar recibir daño en bucle
-    public float invulnerabilityDuration = 3f; //duración de la invulnerabilidad tras recibir daño
-    public Color invulnerableColor = new Color(1f, 1f, 1f, 0.5f); //color semi-transparente cuando es invulnerable
-    private Color originalColor; //para restaurar el color original
-    private SpriteRenderer spriteRenderer; //referencia al SpriteRenderer
+    public float invulnerabilityDuration = 2f; //duración de la invulnerabilidad tras recibir daño
     private Collider miltonCollider; //referencia al Collider de Milton
 
     private Rigidbody rb;//variable que va a contener el objeto Milton
@@ -40,8 +39,6 @@ public class MiltonLogic : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         miltonCollider = GetComponent<Collider>(); //obtiene el Collider de Milton
-        spriteRenderer = GetComponent<SpriteRenderer>(); //obtiene el SpriteRenderer
-        originalColor = spriteRenderer.color; //guarda el color original del SpriteRenderer de Milton
         currentHealth = maxHealth;
         UpdateHeartsUI();
         gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
@@ -52,6 +49,18 @@ public class MiltonLogic : MonoBehaviour
         //movimiento del personaje
         float moveX = Input.GetAxis("Horizontal");  //movimiento a izquierda (con A/D o flechas izquierda/derecha)
         float moveZ = Input.GetAxis("Vertical");    //movimiento hacia delante o hacia el fondo, en vertical (con W/S o flechas arriba/abajo)
+
+        //si Milton se mueve, cambiamos a la animación de movimiento
+        if (moveX != 0 || moveZ != 0)
+        {
+            animator.SetBool("isWalking", true);
+            isMoving = true; //para saber cuando se está moviendo y que la animación de disparo sea la de moverse y disparar
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); //si nos quedamos quietos, cambiamos a la animación de idle
+            isMoving= false; //para la animación de disparo en idle
+        }
 
         //si el jugador se mueve hacia la izquierda (X negativo), se rota el personaje hacia la izquierda y ejecuta la animación de giro
         if (moveX < 0 && !facingLeft && !isFlipping)
@@ -80,6 +89,17 @@ public class MiltonLogic : MonoBehaviour
         if (waterCounter.GetCurrentWater() > 0)
         {
             waterCounter.UseWater();
+
+            if(isMoving)
+            {
+                animator.SetBool("walkingAttack", true);
+            }else
+            {
+                animator.SetBool("idleAttack", true);
+            }
+
+            StartCoroutine(WaitForShootAnimation());
+
             //instancia la bola de agua en el punto de disparo
             GameObject waterBall = Instantiate(waterBallPrefab, firePoint.position, Quaternion.identity);
 
@@ -174,9 +194,6 @@ public class MiltonLogic : MonoBehaviour
         currentHealth--;
         UpdateHeartsUI();
 
-        //animación de daño
-        //animator.SetTrigger("Hurt");
-
         //activa la invulnerabilidad durante tres segundos tras recibir daño
         StartCoroutine(InvulnerabilityFrames());
 
@@ -184,7 +201,7 @@ public class MiltonLogic : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Milton murió");
-            //Die();
+            Die();
         }
     }
 
@@ -218,10 +235,23 @@ public class MiltonLogic : MonoBehaviour
         }
     }
 
+    //corutina para la animación de disparo
+    IEnumerator WaitForShootAnimation()
+    {
+        //esperamos el tiempo de duración de la animación de disparo
+        yield return new WaitForSeconds(shootAnimationDuration);
+
+        //desactiva las dos animaciones de disparo, sea cual sea la que estaba siendo usada
+        animator.SetBool("walkingAttack", false);
+        animator.SetBool("idleAttack", false);
+    }
+
     IEnumerator InvulnerabilityFrames()
     {
         isInvulnerable = true;
-        spriteRenderer.color = invulnerableColor; //cambia el color a semi-transparente
+
+        //animación de daño
+        animator.SetBool("isHurt", true);
 
         //buscar a todos los enemigos en la escena y desactivar colisiones con ellos
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -246,7 +276,7 @@ public class MiltonLogic : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = originalColor; //restaura el color original del sprite de Milton
+        animator.SetBool("isHurt", false);
         isInvulnerable = false;
     }
 
@@ -254,8 +284,15 @@ public class MiltonLogic : MonoBehaviour
     void Die()
     {
         isDead = true;
-        animator.SetTrigger("Die");
-        rb.linearVelocity = Vector2.zero; //detener movimiento
+        animator.SetBool("isDeath", true);
+
+        //detener el movimiento de Milton
+        rb.linearVelocity = Vector3.zero; //detener el movimiento físico
+        rb.isKinematic = true; //poner el Rigidbody como cinemático para evitar colisiones
+
+        //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
+        enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
+
         StartCoroutine(ShowGameOverMenu());
     }
 
