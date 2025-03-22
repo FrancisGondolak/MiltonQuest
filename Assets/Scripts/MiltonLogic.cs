@@ -53,6 +53,16 @@ public class MiltonLogic : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");  //movimiento a izquierda (con A/D o flechas izquierda/derecha)
         float moveZ = Input.GetAxis("Vertical");    //movimiento hacia delante o hacia el fondo, en vertical (con W/S o flechas arriba/abajo)
 
+        //si Milton se mueve, cambiamos a la animación de movimiento
+        if (moveX != 0 || moveZ != 0)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false); //si nos quedamos quietos, cambiamos a la animación de idle
+        }
+
         //si el jugador se mueve hacia la izquierda (X negativo), se rota el personaje hacia la izquierda y ejecuta la animación de giro
         if (moveX < 0 && !facingLeft && !isFlipping)
         {
