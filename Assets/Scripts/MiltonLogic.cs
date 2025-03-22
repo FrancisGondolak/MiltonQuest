@@ -181,7 +181,7 @@ public class MiltonLogic : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Milton murió");
-            //Die();
+            Die();
         }
     }
 
@@ -253,8 +253,15 @@ public class MiltonLogic : MonoBehaviour
     void Die()
     {
         isDead = true;
-        animator.SetTrigger("Die");
-        rb.linearVelocity = Vector2.zero; //detener movimiento
+        animator.SetBool("isDeath", true);
+
+        //detener el movimiento de Milton
+        rb.linearVelocity = Vector3.zero; //detener el movimiento físico
+        rb.isKinematic = true; //poner el Rigidbody como cinemático para evitar colisiones
+
+        //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
+        enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
+
         StartCoroutine(ShowGameOverMenu());
     }
 
