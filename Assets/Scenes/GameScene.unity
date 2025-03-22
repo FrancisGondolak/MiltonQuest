@@ -1704,7 +1704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.163, y: 0.291}
-  m_AnchoredPosition: {x: 85.899956, y: -5.500061}
+  m_AnchoredPosition: {x: 85.89996, y: -5.500061}
   m_SizeDelta: {x: 184, y: 21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618575814
@@ -2360,6 +2360,7 @@ MonoBehaviour:
   waterBallSpeed: 10
   waterCounter: {fileID: 2112835356}
   inventoryManager: {fileID: 493356176}
+  shootAnimationDuration: 0.5
   flipSpeed: 0.2
   maxHealth: 3
   currentHealth: 0
@@ -2371,8 +2372,8 @@ MonoBehaviour:
   bittenHeartSprite: {fileID: 21300000, guid: 9bb9a81b4ca6a2f49aceca137e5dba49, type: 3}
   animator: {fileID: 902837056}
   gameOverMenu: {fileID: 0}
+  isMoving: 0
   invulnerabilityDuration: 2
-  invulnerableColor: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!95 &902837056
 Animator:
   serializedVersion: 7
@@ -2537,7 +2538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.210682, y: 0.30100003}
-  m_AnchoredPosition: {x: 86.899994, y: -6.799988}
+  m_AnchoredPosition: {x: 86.9, y: -6.799988}
   m_SizeDelta: {x: 180, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &984604362
@@ -4142,7 +4143,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19365302, y: 0.31158108}
-  m_AnchoredPosition: {x: 86.99992, y: -7.0000343}
+  m_AnchoredPosition: {x: 86.99992, y: -7.0000305}
   m_SizeDelta: {x: 181, y: 19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967680607
@@ -4845,18 +4846,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
-      propertyPath: keyPrefab
-      value: 
-      objectReference: {fileID: 4097551805578741044, guid: 20326ba65e01c7a4b85a364476091317, type: 3}
-    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
-      propertyPath: coinPrefab
-      value: 
-      objectReference: {fileID: 5892236070322368761, guid: b278007a2ba2d89459380bb7619f385d, type: 3}
-    - target: {fileID: 4384329905096174405, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
-      propertyPath: littleWaterBottlePrefab
-      value: 
-      objectReference: {fileID: 7011319039251046551, guid: 6e49cc75a6ce60346a98195e939e49ad, type: 3}
     - target: {fileID: 4455684938575869301, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
       propertyPath: m_Name
       value: Mudler_Enemy
@@ -4958,30 +4947,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5745067851950651568, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_Size.x
-      value: 8.251812
-      objectReference: {fileID: 0}
-    - target: {fileID: 5745067851950651568, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_Size.y
-      value: 9.766727
-      objectReference: {fileID: 0}
-    - target: {fileID: 5745067851950651568, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_Center.x
-      value: -0.7979915
-      objectReference: {fileID: 0}
-    - target: {fileID: 5745067851950651568, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_Center.y
-      value: 0.35249183
-      objectReference: {fileID: 0}
-    - target: {fileID: 6438311384570073139, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6438311384570073139, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4d3d1336fd9981a4984e77e534692d49, type: 3}
     - target: {fileID: 6670863095796801421, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
       propertyPath: storeUI
       value: 

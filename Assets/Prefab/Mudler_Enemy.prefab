@@ -176,9 +176,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   health: 3
+  shrinkSpeed: 0.6
+  hurtDuration: 0.5
+  dyingDuration: 10
   coinPrefab: {fileID: 5892236070322368761, guid: b278007a2ba2d89459380bb7619f385d, type: 3}
   littleWaterBottlePrefab: {fileID: 7011319039251046551, guid: 6e49cc75a6ce60346a98195e939e49ad, type: 3}
   keyPrefab: {fileID: 4097551805578741044, guid: 20326ba65e01c7a4b85a364476091317, type: 3}
+  animator: {fileID: 7532667431101785095}
   enemiesWithKey: 01000000030000000600000007000000
 --- !u!65 &7530980298775622245
 BoxCollider:
