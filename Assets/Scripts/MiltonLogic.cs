@@ -184,8 +184,8 @@ public class MiltonLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("Door"))
         {
-            if (inventoryManager.hasKey)
-            {
+            //if (inventoryManager.hasKey)
+            //{
                 Door door = other.gameObject.GetComponent<Door>(); //obtiene el script de la puerta
                 if (door != null)
                 {
@@ -193,11 +193,11 @@ public class MiltonLogic : MonoBehaviour
                     inventoryManager.hasKey = false; //pierde la llave al cambiar de sala
                     inventoryManager.UpdateInventoryUI();
                 }
-            }
-            else
-            {
-                Debug.Log("MILTON NO TIENE LA LLAVE");
-            }
+            //}
+            //else
+            //{
+                //Debug.Log("MILTON NO TIENE LA LLAVE");
+            //}
         }
     }
 
