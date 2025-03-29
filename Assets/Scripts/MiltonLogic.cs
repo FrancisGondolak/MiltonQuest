@@ -188,7 +188,7 @@ public class MiltonLogic : MonoBehaviour
     {
         if (isDead || isInvulnerable)
         {
-            return; //evitar daño si ya está muerto
+            return; //evitar daño si ya está muerto o es invulnerable
         }
 
         currentHealth--;
@@ -200,7 +200,6 @@ public class MiltonLogic : MonoBehaviour
         //si la vida llega a 0, activar método Die() para el Game Over
         if (currentHealth <= 0)
         {
-            Debug.Log("Milton murió");
             Die();
         }
     }
@@ -250,6 +249,8 @@ public class MiltonLogic : MonoBehaviour
     {
         isInvulnerable = true;
 
+        enabled = false; //desactiva el script de Milton cuando le hacen daño para que no pueda moverse durante ese tiempo
+
         //animación de daño
         animator.SetBool("isHurt", true);
 
@@ -278,6 +279,7 @@ public class MiltonLogic : MonoBehaviour
 
         animator.SetBool("isHurt", false);
         isInvulnerable = false;
+        enabled = true; //vuelve a activar el script de Milton
     }
 
     //método para la animación de muerte y Game Over
