@@ -250,6 +250,7 @@ public class MiltonLogic : MonoBehaviour
         isInvulnerable = true;
 
         enabled = false; //desactiva el script de Milton cuando le hacen daño para que no pueda moverse durante ese tiempo
+        rb.linearVelocity = Vector3.zero; //detener el movimiento físico de Milton
 
         //animación de daño
         animator.SetBool("isHurt", true);
