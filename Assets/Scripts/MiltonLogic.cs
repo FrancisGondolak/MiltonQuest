@@ -41,7 +41,7 @@ public class MiltonLogic : MonoBehaviour
         miltonCollider = GetComponent<Collider>(); //obtiene el Collider de Milton
         currentHealth = maxHealth;
         UpdateHeartsUI();
-        gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
+        //gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
     }
 
     void Update()
@@ -265,7 +265,7 @@ public class MiltonLogic : MonoBehaviour
         //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
         enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
 
-        StartCoroutine(ShowGameOverMenu());
+        //StartCoroutine(ShowGameOverMenu());
     }
 
     //corutina para la animación de disparo
