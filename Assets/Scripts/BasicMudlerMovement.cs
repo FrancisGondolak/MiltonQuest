@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor.Tilemaps;
 
 public class BasicMudlerMovement : MonoBehaviour
 {
@@ -19,7 +20,10 @@ public class BasicMudlerMovement : MonoBehaviour
     public Animator animator; //Animator para cambiar entre las distintas animaciones
 
     public static int enemiesDefeated = 0; //contador de Mudlers derrotados por Milton
-    public int[] enemiesWithKey = {1,3,6,7}; //números en los que los enemigos tienen que soltar la llave del nivel (en la primera sala el enemigo que hay, en la segunda los dos, en la 4 los 3 y en la última el Mudler especial)
+    public int[] enemiesWithKey = { 1, 5, 10, 11 }; //números en los que los enemigos tienen que soltar la llave del nivel (en la primera sala el enemigo que hay, en la segunda los dos, en la 4 los 3 y en la última el Mudler especial)
+
+    public enum MovementType { Horizontal, Vertical }; //tipo de movimiento
+    public MovementType movementType = MovementType.Vertical; //por defecto se mueve verticalmente
 
     private void Start()
     {
@@ -32,19 +36,36 @@ public class BasicMudlerMovement : MonoBehaviour
         //si el enemigo NO se está muriendo, se mueve
         if (!isDying)
         {
-            //mueve al enemigo en el eje Z
-            transform.position += new Vector3(0, 0, direction * speed * Time.deltaTime);
+            //mover dependiendo del tipo de movimiento
+            if (movementType == MovementType.Vertical)
+            {
+                transform.position += new Vector3(0, 0, direction * speed * Time.deltaTime); //movimiento vertical
+            }
+            else if (movementType == MovementType.Horizontal)
+            {
+                transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0); //movimiento horizontal
+            }
         }
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
         //si choca con una pared, cambia de dirección
         if (other.CompareTag("Wall"))
         {
-            direction *= -1;
+            direction *= -1; //cambia la dirección
+
+            if (movementType == MovementType.Horizontal)
+            {
+                Flip();
+            }
+
+        }
+
+        //si choca contra cualquier objeto (llave, moneda o botella de agua) ignora la colisión para no arrastrar por la pantalla los objetos
+        if (other.CompareTag("Key") || other.CompareTag("Coin") || other.CompareTag("LittleWaterBottle"))
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), other);
         }
 
         //si es un disparo de Milton, recibe daño
@@ -55,7 +76,7 @@ public class BasicMudlerMovement : MonoBehaviour
         }
 
         //si choca con Milton y no está muriéndose, le hace daño (método en el Script de Milton)
-        if (other.CompareTag("Player")  && !isDying)
+        if (other.CompareTag("Player") && !isDying)
         {
             other.GetComponent<MiltonLogic>().TakeDamage(transform.position);
         }
@@ -97,12 +118,21 @@ public class BasicMudlerMovement : MonoBehaviour
         }
     }
 
+    //método para girar a los enemigos que se mueven en horizontal
+    private void Flip()
+    {
+        //cambia la escala en X del objeto para simular que el enemigo se gira
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;  //invierte la escala en el eje X para voltear el sprite
+        transform.localScale = currentScale;  //asigna la nueva escala
+    }
+
     IEnumerator ResetHurtAnimation()
     {
-        // Espera el tiempo de la animación de daño
+        //Espera el tiempo de la animación de daño
         yield return new WaitForSeconds(hurtDuration); // Ajusta este tiempo según la duración de la animación de daño
 
-        // Después de la animación de daño, desactivar el parámetro 'isHurt'
+        //Después de la animación de daño, desactivar el parámetro 'isHurt'
         animator.SetBool("isHurt", false);
     }
 
@@ -137,11 +167,12 @@ public class BasicMudlerMovement : MonoBehaviour
     private void DropItems()
     {
         enemiesDefeated++; //aumenta el contador de enemigos derrotados
+        Debug.Log("ENEMIGOS DERROTADOS: " +  enemiesDefeated);
         bool hasKey = System.Array.Exists(enemiesWithKey, element => element == enemiesDefeated);
 
         if (hasKey)
         {
-            //si el enemigo es el último, el que tiene la llave de la sala, deja caer la llave y 2 objetos aleatorios
+            // i el enemigo es el último, el que tiene la llave de la sala, deja caer la llave y 2 objetos aleatorios
             SpawnObject(keyPrefab, transform.position + Vector3.up * 0.5f);
             SpawnObject(GetRandomItem(), transform.position + Vector3.right * 0.5f);
             SpawnObject(GetRandomItem(), transform.position + Vector3.left * 0.5f);

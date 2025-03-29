@@ -183,7 +183,8 @@ MonoBehaviour:
   littleWaterBottlePrefab: {fileID: 7011319039251046551, guid: 6e49cc75a6ce60346a98195e939e49ad, type: 3}
   keyPrefab: {fileID: 4097551805578741044, guid: 20326ba65e01c7a4b85a364476091317, type: 3}
   animator: {fileID: 7532667431101785095}
-  enemiesWithKey: 01000000030000000600000007000000
+  enemiesWithKey: 01000000050000000a0000000b000000
+  movementType: 1
 --- !u!65 &7530980298775622245
 BoxCollider:
   m_ObjectHideFlags: 0
