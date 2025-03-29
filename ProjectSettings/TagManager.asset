@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - LittleWaterBottle
   - Key
+  - Door
   layers:
   - Default
   - TransparentFX

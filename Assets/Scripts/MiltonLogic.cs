@@ -13,6 +13,7 @@ public class MiltonLogic : MonoBehaviour
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
+    public Transform nextRoomSpawnPoint; //referencia del punto en el que aparecerá Milton cuando llegue a la siguiente sala
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -181,6 +182,26 @@ public class MiltonLogic : MonoBehaviour
             inventoryManager.hasKey = true;
             inventoryManager.UpdateInventoryUI();
         }
+
+        if (other.gameObject.CompareTag("Door") && inventoryManager.hasKey)
+        {
+            EnterNextRoom();
+        }
+
+        if (other.gameObject.CompareTag("Door") && !inventoryManager.hasKey)
+        {
+            Debug.Log("MILTON NO TIENE LA LLAVE");
+        }
+    }
+
+    private void EnterNextRoom()
+    {
+        //teletransporta a Milton al punto de inicio de la siguiente sala
+        transform.position = nextRoomSpawnPoint.position;
+
+        //quita la llave después de atravesar la puerta
+        inventoryManager.hasKey = false;
+        inventoryManager.UpdateInventoryUI();
     }
 
     //método para recibir daño
@@ -205,7 +226,7 @@ public class MiltonLogic : MonoBehaviour
     }
 
     //método para actualizar la UI de corazanas
-    void UpdateHeartsUI()
+    private void UpdateHeartsUI()
     {
         for (int i = 0; i < heartIcons.Length; i++)
         {
@@ -232,6 +253,22 @@ public class MiltonLogic : MonoBehaviour
         {
             Debug.Log("Vida de Milton completa");
         }
+    }
+
+    //método para la animación de muerte y Game Over
+    private void Die()
+    {
+        isDead = true;
+        animator.SetBool("isDeath", true);
+
+        //detener el movimiento de Milton
+        rb.linearVelocity = Vector3.zero; //detener el movimiento físico
+        rb.isKinematic = true; //poner el Rigidbody como cinemático para evitar colisiones
+
+        //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
+        enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
+
+        StartCoroutine(ShowGameOverMenu());
     }
 
     //corutina para la animación de disparo
@@ -281,22 +318,6 @@ public class MiltonLogic : MonoBehaviour
         animator.SetBool("isHurt", false);
         isInvulnerable = false;
         enabled = true; //vuelve a activar el script de Milton
-    }
-
-    //método para la animación de muerte y Game Over
-    void Die()
-    {
-        isDead = true;
-        animator.SetBool("isDeath", true);
-
-        //detener el movimiento de Milton
-        rb.linearVelocity = Vector3.zero; //detener el movimiento físico
-        rb.isKinematic = true; //poner el Rigidbody como cinemático para evitar colisiones
-
-        //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
-        enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
-
-        StartCoroutine(ShowGameOverMenu());
     }
 
     //corrutina para mostrar el menú de Game Over después de la animación
