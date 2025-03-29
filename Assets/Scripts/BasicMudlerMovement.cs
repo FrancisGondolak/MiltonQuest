@@ -6,6 +6,9 @@ public class BasicMudlerMovement : MonoBehaviour
 {
     public float speed = 3f; //velocidad de movimiento del Mudler
     private int direction = 1; //dirección inicial (1 = adelante, -1 = atrás)
+    public float radius = 5f; //radio del círculo (para mover a los Mudlers en círculo)
+    private float angle = 0f; //ángulo para el movimiento circular
+    public Vector3 center; //centro del círculo sobre el que se van a mover los Mudlers de movimiento circular
     public int health = 3; //vida del enemigo
     public float shrinkSpeed = 0.6f; //velocidad a la que el enemigo se encoge
     public float hurtDuration = 0.5f; //duración de la animación de daño
@@ -22,13 +25,14 @@ public class BasicMudlerMovement : MonoBehaviour
     public static int enemiesDefeated = 0; //contador de Mudlers derrotados por Milton
     public int[] enemiesWithKey = { 1, 5, 10, 11 }; //números en los que los enemigos tienen que soltar la llave del nivel (en la primera sala el enemigo que hay, en la segunda los dos, en la 4 los 3 y en la última el Mudler especial)
 
-    public enum MovementType { Horizontal, Vertical }; //tipo de movimiento
+    public enum MovementType { Horizontal, Vertical, Circular }; //tipo de movimiento
     public MovementType movementType = MovementType.Vertical; //por defecto se mueve verticalmente
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true; //para que no sea afectado por fuerzas externas
+        center = transform.position; //establece el centro del círculo (en el caso de los Mudlers de movimiento circular) como la posición inicial del Mudler
     }
 
     private void Update()
@@ -37,13 +41,19 @@ public class BasicMudlerMovement : MonoBehaviour
         if (!isDying)
         {
             //mover dependiendo del tipo de movimiento
-            if (movementType == MovementType.Vertical)
+            switch (movementType)
             {
-                transform.position += new Vector3(0, 0, direction * speed * Time.deltaTime); //movimiento vertical
-            }
-            else if (movementType == MovementType.Horizontal)
-            {
-                transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0); //movimiento horizontal
+                case MovementType.Vertical:
+                    transform.position += new Vector3(0, 0, direction * speed * Time.deltaTime);
+                    break;
+
+                case MovementType.Horizontal:
+                    transform.position += new Vector3(direction * speed * Time.deltaTime, 0, 0); 
+                    break;
+
+                case MovementType.Circular:
+                    MoveInCircle(); 
+                    break;
             }
         }
     }
@@ -80,6 +90,29 @@ public class BasicMudlerMovement : MonoBehaviour
         {
             other.GetComponent<MiltonLogic>().TakeDamage(transform.position);
         }
+    }
+
+    //método para el movimiento circular
+    private void MoveInCircle()
+    {
+        //usar la velocidad para determinar lo rápido que gira el Mudler en torno al centro de su círculo
+        angle += speed * Time.deltaTime * 20f; //ajusta el factor "20f" para que el ángulo avance más rápido, si es necesario
+
+        //mantiene el ángulo entre 0 y 360 grados
+        if (angle >= 360f)
+        {
+            angle -= 360f;
+        }
+
+        //calcula las nuevas posiciones X y Z usando seno y coseno para formar el círculo
+        float x = center.x + Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
+        float z = center.z + Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
+
+        //mantiene la misma altura en Y
+        float y = transform.position.y;
+
+        //actualiza la posición del Mudler
+        transform.position = new Vector3(x, y, z);
     }
 
     private void TakeDamage()
