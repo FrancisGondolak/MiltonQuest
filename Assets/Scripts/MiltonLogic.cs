@@ -13,7 +13,6 @@ public class MiltonLogic : MonoBehaviour
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
-    public Transform nextRoomSpawnPoint; //referencia del punto en el que aparecerá Milton cuando llegue a la siguiente sala
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -183,25 +182,23 @@ public class MiltonLogic : MonoBehaviour
             inventoryManager.UpdateInventoryUI();
         }
 
-        if (other.gameObject.CompareTag("Door") && inventoryManager.hasKey)
+        if (other.gameObject.CompareTag("Door"))
         {
-            EnterNextRoom();
+            if (inventoryManager.hasKey)
+            {
+                Door door = other.gameObject.GetComponent<Door>(); //obtiene el script de la puerta
+                if (door != null)
+                {
+                    transform.position = door.GetDestination().position; //teletransporta a Milton al punto de la siguiente sala
+                    inventoryManager.hasKey = false; //pierde la llave al cambiar de sala
+                    inventoryManager.UpdateInventoryUI();
+                }
+            }
+            else
+            {
+                Debug.Log("MILTON NO TIENE LA LLAVE");
+            }
         }
-
-        if (other.gameObject.CompareTag("Door") && !inventoryManager.hasKey)
-        {
-            Debug.Log("MILTON NO TIENE LA LLAVE");
-        }
-    }
-
-    private void EnterNextRoom()
-    {
-        //teletransporta a Milton al punto de inicio de la siguiente sala
-        transform.position = nextRoomSpawnPoint.position;
-
-        //quita la llave después de atravesar la puerta
-        inventoryManager.hasKey = false;
-        inventoryManager.UpdateInventoryUI();
     }
 
     //método para recibir daño

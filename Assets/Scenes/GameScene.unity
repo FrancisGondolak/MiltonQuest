@@ -2043,6 +2043,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9190623, y: 3.0016277, z: 0.55776036}
   m_Center: {x: -0.9561855, y: 1.5008138, z: 0}
+--- !u!114 &810390786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810390781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302934d92201c7f4394c08a24862b971, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {fileID: 1382970448}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,7 +2400,6 @@ MonoBehaviour:
   waterCounter: {fileID: 2112835356}
   inventoryManager: {fileID: 493356176}
   shootAnimationDuration: 0.5
-  nextRoomSpawnPoint: {fileID: 1382970448}
   flipSpeed: 0.2
   maxHealth: 3
   currentHealth: 0
@@ -5149,6 +5161,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2840251423897710321, guid: fb814a7edc3eadd42bd4c6ce25fe9210, type: 3}
       insertIndex: -1
       addedObject: {fileID: 810390782}
+    - targetCorrespondingSourceObject: {fileID: 2840251423897710321, guid: fb814a7edc3eadd42bd4c6ce25fe9210, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 810390786}
   m_SourcePrefab: {fileID: 100100000, guid: fb814a7edc3eadd42bd4c6ce25fe9210, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
