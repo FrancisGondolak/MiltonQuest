@@ -2387,7 +2387,7 @@ MonoBehaviour:
   waterCounter: {fileID: 2112835356}
   inventoryManager: {fileID: 493356176}
   shootAnimationDuration: 0.5
-  nextRoomSpawnPoint: {fileID: 0}
+  nextRoomSpawnPoint: {fileID: 1382970448}
   flipSpeed: 0.2
   maxHealth: 3
   currentHealth: 0
@@ -3181,6 +3181,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376181030}
   m_CullTransparentMesh: 1
+--- !u!1 &1382970447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1382970448}
+  m_Layer: 0
+  m_Name: NextRoomSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1382970448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382970447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.558, z: 10.81}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1507067801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1465398686
 GameObject:
   m_ObjectHideFlags: 0
@@ -3475,7 +3506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4292389487914049320, guid: 9f30a364dbc19ed469a2b5d4ed123667, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -45.6
+      value: -45.5
       objectReference: {fileID: 0}
     - target: {fileID: 4292389487914049320, guid: 9f30a364dbc19ed469a2b5d4ed123667, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3566,6 +3597,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4292389487914049320, guid: 9f30a364dbc19ed469a2b5d4ed123667, type: 3}
       insertIndex: -1
       addedObject: {fileID: 44527900}
+    - targetCorrespondingSourceObject: {fileID: 4292389487914049320, guid: 9f30a364dbc19ed469a2b5d4ed123667, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1382970448}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f30a364dbc19ed469a2b5d4ed123667, type: 3}
 --- !u!4 &1507067801 stripped
