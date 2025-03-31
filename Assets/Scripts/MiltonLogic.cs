@@ -12,6 +12,7 @@ public class MiltonLogic : MonoBehaviour
     private bool facingLeft = false; //booleano para saber en qué dirección mira Milton. De inicio en false porque mira a la derecha
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
+    public MenuManager menuManager;//acceder a la clase MenuManager
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
@@ -25,7 +26,6 @@ public class MiltonLogic : MonoBehaviour
 
     public Animator animator; //Animator para cambiar entre las distintas animaciones
 
-    public GameObject gameOverMenu; //menú de Game Over
     private bool isDead = false; //para evitar que se sigan ejecutando acciones tras la muerte
     public bool isMoving = false;
 
@@ -265,7 +265,7 @@ public class MiltonLogic : MonoBehaviour
         //desactivar entradas de movimiento para evitar que Milton se mueva durante la animación
         enabled = false; //desactivar el script completo (deshabilita la actualización del movimiento)
 
-        //StartCoroutine(ShowGameOverMenu());
+        StartCoroutine(ShowGameOverMenu());
     }
 
     //corutina para la animación de disparo
@@ -321,7 +321,7 @@ public class MiltonLogic : MonoBehaviour
     IEnumerator ShowGameOverMenu()
     {
         yield return new WaitForSeconds(1.5f); //espera 1.5 segundos para que termine la animación de muerte
-        gameOverMenu.SetActive(true);
+        menuManager.OpenGameOverMenuCanvas();
     }
 
 }

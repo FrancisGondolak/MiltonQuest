@@ -1870,7 +1870,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 376939011}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1575932095}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ReloadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &376939011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4433,6 +4445,7 @@ MonoBehaviour:
   waterBallSpeed: 10
   waterCounter: {fileID: 2112835356}
   inventoryManager: {fileID: 493356176}
+  menuManager: {fileID: 1575932095}
   shootAnimationDuration: 0.5
   flipSpeed: 0.2
   maxHealth: 3
@@ -4444,7 +4457,6 @@ MonoBehaviour:
   fullHeartSprite: {fileID: 21300000, guid: 76f11409f5458a349b8df599c289eff8, type: 3}
   bittenHeartSprite: {fileID: 21300000, guid: 9bb9a81b4ca6a2f49aceca137e5dba49, type: 3}
   animator: {fileID: 902837056}
-  gameOverMenu: {fileID: 0}
   isMoving: 0
   invulnerabilityDuration: 2
 --- !u!95 &902837056
@@ -5567,7 +5579,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1097815519}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1575932095}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1097815519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7171,6 +7195,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4777683281148886263, guid: 5d12f9c164ed6344ba4903b91af9958d, type: 3}
   m_PrefabInstance: {fileID: 1772843355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1575932093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1575932094}
+  - component: {fileID: 1575932095}
+  m_Layer: 0
+  m_Name: MenuManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1575932094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575932093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.6469, y: -17.755209, z: 792.00793}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1575932095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575932093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7202c952a69eb42b7ae2ae2062a183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 1678026278}
+  gameOverMenu: {fileID: 1765436724}
 --- !u!1 &1578341797
 GameObject:
   m_ObjectHideFlags: 0
@@ -9812,6 +9882,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 330585546}
   - {fileID: 2112835357}
+  - {fileID: 1575932094}
   - {fileID: 493356177}
   - {fileID: 902837052}
   - {fileID: 297761052}
