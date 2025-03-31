@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     public Sprite appleHeartSprite;  //Icono para la coranzana
     public int coins = 50; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
+    public TextMeshProUGUI messageText; //texto para mostrar mensajes en pantalla
     public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
     public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
     public Image key;
@@ -20,6 +22,7 @@ public class InventoryManager : MonoBehaviour
     void Start()
     {
         UpdateInventoryUI();
+        messageText.text = ""; //asegurar que el mensaje de indicaciones está vacío al comenzar el juego
     }
 
     void Update()
@@ -67,26 +70,24 @@ public class InventoryManager : MonoBehaviour
             //comprueba si es una corazana o una botella de agua
             if (usedItem == appleHeartSprite && milton.currentHealth < milton.maxHealth)
             {
-                Debug.Log("Usaste una corazana");
                 milton.Heal(); //llama al método Heal() situado en MiltonLogic
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
             }
             else if (usedItem == waterBottleSprite)
             {
-                Debug.Log("Usaste una botella de agua");
                 waterCounter.AddWater(20);
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
             }
             else
             {
-                Debug.Log("Milton tiene la vida llena");
+                ShowMessage("Tienes la vida completa");
             }   
         }
         else
         {
-            Debug.Log("No hay objeto en esta casilla.");
+            ShowMessage("No hay objetos en ese espacio");
         }
     }
 
@@ -98,18 +99,17 @@ public class InventoryManager : MonoBehaviour
             //verificamos si hay espacio en el inventario
             if (items.Count >= 5)  //si el inventario está lleno
             {
-                Debug.Log("Inventario lleno. No puedes comprar más objetos.");
+                ShowMessage("Inventario lleno");
                 return false; //retorna false, no nos permite comprar más objetos
             }
 
-            coins -= price;  // Descontamos las monedas
-            AddItem(itemType);  // Añadimos el objeto al inventario
-            Debug.Log($"Compraste un {itemType}. Te quedan {coins} monedas.");
-            return true;  // Compra exitosa
+            coins -= price;  //descontamos las monedas
+            AddItem(itemType);  //añadimos el objeto al inventario
+            return true;  //compra exitosa
         }
         else
         {
-            Debug.Log("No tienes suficientes monedas para comprar este objeto.");
+            ShowMessage("No tienes suficiente dinero");
             return false;
         }
     }
@@ -143,6 +143,20 @@ public class InventoryManager : MonoBehaviour
         Color keyColor = key.color;
         keyColor.a = alpha;
         key.color = keyColor;
+    }
+
+    //método para mostrar los mensajes de texto en pantalla
+    private void ShowMessage(string message)
+    {
+        messageText.text = message;
+        StartCoroutine(ClearMessageAfterDelay(2f));
+    }
+    
+    //método para limpiar el mensaje en pantalla pasado un tiempo
+    private IEnumerator ClearMessageAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        messageText.text = "";
     }
 }
 

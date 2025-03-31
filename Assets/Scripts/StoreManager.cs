@@ -14,7 +14,7 @@ public class StoreManager : MonoBehaviour
     public List<StoreItem> storeItems = new List<StoreItem>();
     private int currentItemIndex = 0; // Índice del objeto actualmente seleccionado
 
-    void Start()
+    private void Start()
     {
         //asegura que la tienda está oculta al principio
         storeUI.SetActive(false);
@@ -22,7 +22,7 @@ public class StoreManager : MonoBehaviour
         UpdateSelectionHighlight();
     }
 
-    void Update()
+    private void Update()
     {
         //comprobar si el jugador está dentro del rango de interacción
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -62,7 +62,7 @@ public class StoreManager : MonoBehaviour
     }
 
     // Método para movernos entre los objetos
-    void NavigateItems(int direction)
+    private void NavigateItems(int direction)
     {
         // Cambiar el índice del objeto seleccionado
         currentItemIndex = Mathf.Clamp(currentItemIndex + direction, 0, storeItems.Count - 1);
@@ -72,7 +72,7 @@ public class StoreManager : MonoBehaviour
     }
 
     // Resalta el objeto seleccionado con un borde
-    void UpdateSelectionHighlight()
+    private void UpdateSelectionHighlight()
     {
         for (int i = 0; i < storeItems.Count; i++)
         {
@@ -88,7 +88,7 @@ public class StoreManager : MonoBehaviour
     }
 
     //método para abrir o cerrar la tienda
-    void ToggleStore()
+    private void ToggleStore()
     {
         storeUI.SetActive(!storeUI.activeSelf);  //cambia el estado de la tienda (activa/desactiva)
         Time.timeScale = storeUI.activeSelf ? 0 : 1; //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
