@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public int coins = 50; //monedas iniciales del jugador
     public TextMeshProUGUI coinsText; //texto de las monedas que tenemos en el HUD
     public TextMeshProUGUI messageText; //texto para mostrar mensajes en pantalla
+    public Image messageTextBackground; //imagen de fondo de los mensajes para el usuario
     public MiltonLogic milton; //variable para acceder al script de Milton y afectar a su vida al usar objetos 
     public WaterCounterUI waterCounter;//variable para acceder al script del contador de agua y aumentarlo al usar objetos
     public Image key;
@@ -19,13 +20,14 @@ public class InventoryManager : MonoBehaviour
     private List<Sprite> items = new List<Sprite>(); //Lista interna para los objetos del inventario
     public bool hasKey = false;//variable para controlar si tenemos la llave o no. La cambiamos desde el Script de Milton al recoger la llave o usarla en la puerta
 
-    void Start()
+    private void Start()
     {
         UpdateInventoryUI();
         messageText.text = ""; //asegurar que el mensaje de indicaciones está vacío al comenzar el juego
+        messageTextBackground.gameObject.SetActive(false); //al principio del juego, el background del texto no está activo
     }
 
-    void Update()
+    private void Update()
     {
         //Detecta la pulsación de las teclas 1 al 5 para usar el item que se encuentra en ese espacio del inventario
         if (Input.GetKeyDown(KeyCode.Alpha1)) UseItemAt(0);
@@ -146,9 +148,10 @@ public class InventoryManager : MonoBehaviour
     }
 
     //método para mostrar los mensajes de texto en pantalla
-    private void ShowMessage(string message)
+    public void ShowMessage(string message)
     {
         messageText.text = message;
+        messageTextBackground.gameObject.SetActive(true);
         StartCoroutine(ClearMessageAfterDelay(2f));
     }
     
@@ -157,6 +160,7 @@ public class InventoryManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
         messageText.text = "";
+        messageTextBackground.gameObject.SetActive(false);
     }
 }
 

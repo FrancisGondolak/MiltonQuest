@@ -196,7 +196,7 @@ public class MiltonLogic : MonoBehaviour
             }
             else
             {
-                Debug.Log("MILTON NO TIENE LA LLAVE");
+                inventoryManager.ShowMessage("No tienes la llave");
             }
         }
     }
