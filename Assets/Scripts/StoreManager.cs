@@ -10,9 +10,9 @@ public class StoreManager : MonoBehaviour
     private bool isPlayerInRange = false; //indica si el jugador está cerca del vendedor
     private GameObject player;  //referencia al jugador para detectar la proximidad
 
-    // Lista de objetos disponibles en la tienda y sus precios
+    //lista de objetos disponibles en la tienda y sus precios
     public List<StoreItem> storeItems = new List<StoreItem>();
-    private int currentItemIndex = 0; // Índice del objeto actualmente seleccionado
+    private int currentItemIndex = 0; //índice del objeto actualmente seleccionado, el 0 de entrada
 
     private void Start()
     {
@@ -36,12 +36,12 @@ public class StoreManager : MonoBehaviour
         }
 
         //si el jugador está cerca y pulsa la tecla "Enter", abrir o cerrar la tienda
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.Return))
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ToggleStore();
         }
 
-        // Navegación por los objetos usando las teclas WASD o las flechas
+        //navegación por los objetos usando las teclas WASD o las flechas
         if (storeUI.activeSelf)
         {
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -53,7 +53,7 @@ public class StoreManager : MonoBehaviour
                 NavigateItems(1);
             }
 
-            // Comprar el objeto seleccionado con la tecla Q
+            //comprar el objeto seleccionado con la tecla Q
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 TryBuyItem();
@@ -61,28 +61,28 @@ public class StoreManager : MonoBehaviour
         }
     }
 
-    // Método para movernos entre los objetos
+    //método para moverse entre los objetos de la tienda
     private void NavigateItems(int direction)
     {
-        // Cambiar el índice del objeto seleccionado
+        //cambiar el índice del objeto seleccionado
         currentItemIndex = Mathf.Clamp(currentItemIndex + direction, 0, storeItems.Count - 1);
 
-        // Resaltar el objeto seleccionado
+        //resaltar el objeto seleccionado
         UpdateSelectionHighlight();
     }
 
-    // Resalta el objeto seleccionado con un borde
+    //método para resaltar el objeto seleccionado
     private void UpdateSelectionHighlight()
     {
         for (int i = 0; i < storeItems.Count; i++)
         {
             if (i == currentItemIndex)
             {
-                storeItems[i].Highlight(true); // Resalta el objeto seleccionado
+                storeItems[i].Highlight(true); //resaltar el objeto seleccionado
             }
             else
             {
-                storeItems[i].Highlight(false); // Desactiva el resaltado en los otros objetos
+                storeItems[i].Highlight(false); //desactivar el resaltado en los otros objetos
             }
         }
     }
@@ -94,26 +94,26 @@ public class StoreManager : MonoBehaviour
         Time.timeScale = storeUI.activeSelf ? 0 : 1; //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
     }
 
-    // Método corregido para intentar comprar el objeto seleccionado
+    //método para intentar comprar el objeto seleccionado
     public void TryBuyItem()
     {
         if (storeItems.Count > 0 && currentItemIndex >= 0 && currentItemIndex < storeItems.Count)
         {
-            // Obtén el objeto seleccionado
+            //obtener el objeto seleccionado
             StoreItem selectedItem = storeItems[currentItemIndex];
 
-            // Verifica si el InventoryManager está asignado
+            //verificar si el InventoryManager está asignado
             if (inventoryManager != null)
             {
                 bool purchased = inventoryManager.BuyItem(selectedItem.itemType, selectedItem.price);
                 if (purchased)
                 {
-                    Debug.Log("Compra exitosa!");
+                    inventoryManager.ShowMessage("Objeto comprado");
                 }
             }
             else
             {
-                Debug.LogError("No se encontró una referencia de InventoryManager!");
+                inventoryManager.ShowMessage("No hay objeto seleccionado");
             }
         }
     }
@@ -134,16 +134,16 @@ public class StoreItem
         Color color = itemImage.color;  //obtiene el color actual de la imagen
         if (highlight)
         {
-            // Hacer el objeto completamente opaco (sin transparencia)
-            color.a = 1f; // 1 significa opaco
+            //hacer el objeto completamente opaco (sin transparencia)
+            color.a = 1f; //1 significa opaco
         }
         else
         {
-            // Hacer el objeto más transparente (con menos opacidad)
-            color.a = 0.5f; // 0.5 significa medio transparente
+            //hacer el objeto más transparente (con menos opacidad)
+            color.a = 0.5f; //0.5 significa medio transparente
         }
 
-        // Asigna el nuevo color con la transparencia ajustada
+        //asigna el nuevo color con la transparencia ajustada
         itemImage.color = color;
     }
 }
