@@ -78,7 +78,7 @@ public class InventoryManager : MonoBehaviour
             }
             else if (usedItem == waterBottleSprite)
             {
-                waterCounter.AddWater(20);
+                waterCounter.AddWater(25);
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
             }
