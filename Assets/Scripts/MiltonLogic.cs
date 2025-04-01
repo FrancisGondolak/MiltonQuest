@@ -13,6 +13,7 @@ public class MiltonLogic : MonoBehaviour
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
     public MenuManager menuManager;//acceder a la clase MenuManager
+    private bool GamePaused;//variable para controlar cuándo está pausado o no el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
@@ -41,7 +42,7 @@ public class MiltonLogic : MonoBehaviour
         miltonCollider = GetComponent<Collider>(); //obtiene el Collider de Milton
         currentHealth = maxHealth;
         UpdateHeartsUI();
-        //gameOverMenu.SetActive(false);//asegurarnos de que el menú de Game Over está vacío al iniciar
+        GamePaused = false;
     }
 
     void Update()
@@ -80,6 +81,21 @@ public class MiltonLogic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ShootWaterBall();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            if (GamePaused == false)
+            {
+                menuManager.OpenPauseMenuCanvas();
+            }
+            else
+            {
+                menuManager.ClosePauseMenuCanvas();
+            }
+
+            GamePaused = !GamePaused; 
+
         }
     }
 

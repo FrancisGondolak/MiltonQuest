@@ -12,13 +12,21 @@ public class MenuManager : MonoBehaviour
         gameOverMenu.SetActive(false);
     }
 
-    //método para ir al canvas de historia
+    //método para abrir el menú de pausa
     public void OpenPauseMenuCanvas()
     {
         pauseMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 
-    //Método para ir al canvas de controles
+    //método para cerrar el menú de pausa
+    public void ClosePauseMenuCanvas()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    //Método para abrir el menú de game over
     public void OpenGameOverMenuCanvas()
     {
         gameOverMenu.SetActive(true);
