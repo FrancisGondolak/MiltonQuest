@@ -36,6 +36,7 @@ public class MenuManager : MonoBehaviour
     public void ReloadGame()
     {
         gameOverMenu.SetActive(false);
+        BasicMudlerMovement.enemiesDefeated = 0;
         SceneManager.LoadScene("GameScene");
     }
 

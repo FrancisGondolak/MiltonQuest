@@ -205,7 +205,7 @@ public class BasicMudlerMovement : MonoBehaviour
 
         if (hasKey)
         {
-            // i el enemigo es el último, el que tiene la llave de la sala, deja caer la llave y 2 objetos aleatorios
+            //si el enemigo es el último, el que tiene la llave de la sala, deja caer la llave y 2 objetos aleatorios
             SpawnObject(keyPrefab, transform.position + Vector3.up * 0.5f);
             SpawnObject(GetRandomItem(), transform.position + Vector3.right * 0.5f);
             SpawnObject(GetRandomItem(), transform.position + Vector3.left * 0.5f);
