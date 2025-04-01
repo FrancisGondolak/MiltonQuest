@@ -85,17 +85,22 @@ public class MiltonLogic : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
-            if (GamePaused == false)
-            {
-                menuManager.OpenPauseMenuCanvas();
-            }
-            else
-            {
-                menuManager.ClosePauseMenuCanvas();
-            }
+            //almmacena en la variable store la referencia de la tienda para comprobar si no es nula ni está activo el canvas de la tienda antes de permitir abrir el menú de pausa
+            StoreManager store = Object.FindFirstObjectByType<StoreManager>();
 
-            GamePaused = !GamePaused; 
+            if (store != null && !store.storeUI.activeSelf)
+            {
+                if (!GamePaused)
+                {
+                    menuManager.OpenPauseMenuCanvas();
+                }
+                else
+                {
+                    menuManager.ClosePauseMenuCanvas();
+                }
 
+                GamePaused = !GamePaused; 
+            }
         }
     }
 

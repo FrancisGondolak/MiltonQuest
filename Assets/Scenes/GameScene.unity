@@ -4350,7 +4350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19967028, y: 0.32200003}
-  m_AnchoredPosition: {x: 88.700356, y: -6.9999676}
+  m_AnchoredPosition: {x: 88.70036, y: -6.9999657}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892416950
@@ -8379,7 +8379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3694fb0369c8080489692a31399cc3f4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 208d110298649274e81ad95a53a8b9df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9702,7 +9702,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8030617054514901877, guid: 584f92e714ce6a1448772456ebfb01eb, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 584f92e714ce6a1448772456ebfb01eb, type: 3}
@@ -9959,7 +9960,8 @@ PrefabInstance:
       value: WaterBottleObjectIcon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 585140750114323654, guid: 5ad7ed1796c2c864ab9c4cd0bb25ef00, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad7ed1796c2c864ab9c4cd0bb25ef00, type: 3}
