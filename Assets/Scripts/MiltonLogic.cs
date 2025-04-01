@@ -305,14 +305,17 @@ public class MiltonLogic : MonoBehaviour
         //animación de daño
         animator.SetBool("isHurt", true);
 
-        //buscar a todos los enemigos en la escena y desactivar colisiones con ellos
+        //buscar enemigos y desactivar colisiones
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            Collider enemyCollider = enemy.GetComponent<Collider>();
-            if (enemyCollider != null)
+            if (enemy != null) //verifica si el enemigo sigue existiendo, evitando errores
             {
-                Physics.IgnoreCollision(miltonCollider, enemyCollider, true);
+                Collider enemyCollider = enemy.GetComponent<Collider>();
+                if (enemyCollider != null)
+                {
+                    Physics.IgnoreCollision(miltonCollider, enemyCollider, true);
+                }
             }
         }
 
@@ -321,10 +324,13 @@ public class MiltonLogic : MonoBehaviour
         //restaurar colisiones después de la invulnerabilidad
         foreach (GameObject enemy in enemies)
         {
-            Collider enemyCollider = enemy.GetComponent<Collider>();
-            if (enemyCollider != null)
+            if (enemy != null) //verifica si el enemigo sigue existiendo, evitando errores
             {
-                Physics.IgnoreCollision(miltonCollider, enemyCollider, false);
+                Collider enemyCollider = enemy.GetComponent<Collider>();
+                if (enemyCollider != null)
+                {
+                    Physics.IgnoreCollision(miltonCollider, enemyCollider, false);
+                }
             }
         }
 
