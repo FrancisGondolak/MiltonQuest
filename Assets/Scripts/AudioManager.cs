@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip backgroundMusic;
     public AudioClip buttonClickSFX;
 
+    //patrón Singleton, para asegurarse de que solo haya una instancia de AudioManager en todo el juego
     private void Awake()
     {
         if (Instance == null)
@@ -42,7 +43,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        sfxSource.PlayOneShot(clip);
+        if (clip != null)
+        {
+            sfxSource.PlayOneShot(clip);
+        }
     }
 
     public void PlayButtonClick()

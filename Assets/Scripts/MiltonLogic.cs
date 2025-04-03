@@ -4,7 +4,19 @@ using UnityEngine.UI;
 
 public class MiltonLogic : MonoBehaviour
 {
+    [Header("Audio Sources")]
+    public AudioClip sfxMiltonWalk;
+    public AudioClip sfxEatAppleHeart;
+    public AudioClip sfxDoorLocked;
+    public AudioClip sfxDoorOpen;
+    public AudioClip sfxGetCoin;
+    public AudioClip sfxGetKey;
+    public AudioClip sfxGetWater;
+    public AudioClip sfxMiltonHurts;
+    public AudioClip sfxMiltonShoot;
 
+
+    [Header("Others")]
     public float moveSpeed = 5f;
     public GameObject waterBallPrefab; //prefab del disparo de agua de Milton
     public Transform firePoint; //punto desde donde se origina el disparo
@@ -15,6 +27,10 @@ public class MiltonLogic : MonoBehaviour
     public MenuManager menuManager;//acceder a la clase MenuManager
     private bool GamePaused;//variable para controlar cuándo está pausado o no el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
+
+    private float stepTimer = 0f; //temporizador para controlar los pasos
+    public float stepInterval = 5f; //intervalo entre pasos (ajustar según la velocidad del personaje)
+
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -56,11 +72,20 @@ public class MiltonLogic : MonoBehaviour
         {
             animator.SetBool("isWalking", true);
             isMoving = true; //para saber cuando se está moviendo y que la animación de disparo sea la de moverse y disparar
+
+            //controlar la reproducción del sonido de pasos con un temporizador
+            stepTimer += Time.deltaTime;
+            if (stepTimer >= stepInterval)
+            {
+                AudioManager.Instance.PlaySFX(sfxMiltonWalk);
+                stepTimer = 0f; //resetea el temporizador
+            }
         }
         else
         {
             animator.SetBool("isWalking", false); //si nos quedamos quietos, cambiamos a la animación de idle
             isMoving= false; //para la animación de disparo en idle
+            stepTimer = stepInterval; //evita que el sonido de los pasos se reproduzca al detenerse
         }
 
         //si el jugador se mueve hacia la izquierda (X negativo), se rota el personaje hacia la izquierda y ejecuta la animación de giro
@@ -109,6 +134,7 @@ public class MiltonLogic : MonoBehaviour
         //comprobar si tenemos agua disponible para disparar
         if (waterCounter.GetCurrentWater() > 0)
         {
+            AudioManager.Instance.PlaySFX(sfxMiltonShoot);
             waterCounter.UseWater();
 
             if(isMoving)
