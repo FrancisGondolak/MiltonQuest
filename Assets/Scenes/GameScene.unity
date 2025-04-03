@@ -4604,6 +4604,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d2d59443577ec43b9e5118dce8339e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxMiltonWalk: {fileID: 8300000, guid: fb416cfdc7a7a934492e93eaf206189a, type: 3}
+  sfxEatAppleHeart: {fileID: 8300000, guid: 2d4dc7225c55a054498717454dbbb754, type: 3}
+  sfxDoorLocked: {fileID: 8300000, guid: dff2d97c41d8678428d1143778a8ae82, type: 3}
+  sfxDoorOpen: {fileID: 8300000, guid: 292f08222222c4e418584fe1f57df4bb, type: 3}
+  sfxGetCoin: {fileID: 8300000, guid: 3b18261829986d94baa41703fc09d5d6, type: 3}
+  sfxGetKey: {fileID: 8300000, guid: a2333f7782a96274785b27213d6b8387, type: 3}
+  sfxGetWater: {fileID: 8300000, guid: ca475600e8a0b214e8bea32e47b23311, type: 3}
+  sfxMiltonHurts: {fileID: 8300000, guid: d3c69e1c89bf3e04e9572f10008de9b4, type: 3}
+  sfxMiltonShoot: {fileID: 8300000, guid: 4f4f3835affc07947bb09a2243a5efce, type: 3}
   moveSpeed: 5
   waterBallPrefab: {fileID: 1435495127096986931, guid: 260c632b958aed04f96753d748458ab0, type: 3}
   firePoint: {fileID: 1315926856}
@@ -4612,6 +4621,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 493356176}
   menuManager: {fileID: 1575932095}
   shootAnimationDuration: 0.5
+  stepInterval: 0.3
   flipSpeed: 0.2
   maxHealth: 3
   currentHealth: 0

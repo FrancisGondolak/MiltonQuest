@@ -7,6 +7,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject historyMenu;
     public GameObject controlsMenu;
+    public AudioClip gameMusic;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class CanvasManager : MonoBehaviour
     //método para comenzar el juego
     public void BeginGame()
     {
+        AudioManager.Instance.PlayMusic(gameMusic);
         SceneManager.LoadScene("GameScene");
     }
 
