@@ -17,6 +17,7 @@ public class StoreManager : MonoBehaviour
     private bool isPlayerInRange = false; //indica si el jugador está cerca del vendedor
     private GameObject player;  //referencia al jugador para detectar la proximidad
     public GameObject interactionHintHolder; //bocadillo de la tienda (con botón E, para indicar cómo interactuar con ella)
+    public MiltonLogic milton; //acceder a Milton para no poder disparar agua si está abierta la tienda
 
     //lista de objetos disponibles en la tienda y sus precios
     public List<StoreItem> storeItems = new List<StoreItem>();
@@ -116,13 +117,15 @@ public class StoreManager : MonoBehaviour
 
         Time.timeScale = isStoreOpen ? 0 : 1;  //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
 
-        //cambia la música dependiendo de si la tienda está abierta o cerrada
+        //cambia la música y pausa el juego dependiendo de si la tienda está abierta o cerrada
         if (isStoreOpen)
         {
+            milton.GamePaused = true;
             AudioManager.Instance.PlayMusic(storeMusic);  //música de la tienda
         }
         else
         {
+            milton.GamePaused = false;
             AudioManager.Instance.PlayMusic(gameMusic);  //música del juego
         }
     }

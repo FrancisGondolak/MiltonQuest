@@ -10301,6 +10301,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6670863095796801421, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
+      propertyPath: milton
+      value: 
+      objectReference: {fileID: 902837055}
+    - target: {fileID: 6670863095796801421, guid: 14d4513acc1fa47498528e2df02426f4, type: 3}
       propertyPath: storeUI
       value: 
       objectReference: {fileID: 987493748}
