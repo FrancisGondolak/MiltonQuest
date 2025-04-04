@@ -14,6 +14,8 @@ public class MiltonLogic : MonoBehaviour
     public AudioClip sfxGetWater;
     public AudioClip sfxMiltonHurts;
     public AudioClip sfxMiltonShoot;
+    public AudioClip shopMusic;
+    public AudioClip gameOverMusic;
 
 
     [Header("Others")]
@@ -302,6 +304,7 @@ public class MiltonLogic : MonoBehaviour
     //método para la animación de muerte y Game Over
     private void Die()
     {
+        AudioManager.Instance.PlayMusic(gameOverMusic);
         isDead = true;
         animator.SetBool("isDeath", true);
 

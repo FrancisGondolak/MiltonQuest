@@ -6,6 +6,10 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenu;
 
+    [Header("Audio Sources")]
+    public AudioClip gameMusic;
+    public AudioClip pauseMusic;
+
     private void Start()
     {
         pauseMenu.SetActive(false);
@@ -16,6 +20,7 @@ public class MenuManager : MonoBehaviour
     public void OpenPauseMenuCanvas()
     {
         pauseMenu.SetActive(true);
+        AudioManager.Instance.PlayMusic(pauseMusic);
         Time.timeScale = 0;
     }
 
@@ -23,6 +28,7 @@ public class MenuManager : MonoBehaviour
     public void ClosePauseMenuCanvas()
     {
         pauseMenu.SetActive(false);
+        AudioManager.Instance.PlayMusic(gameMusic);
         Time.timeScale = 1;
     }
 
@@ -37,6 +43,7 @@ public class MenuManager : MonoBehaviour
     {
         gameOverMenu.SetActive(false);
         BasicMudlerMovement.enemiesDefeated = 0;
+        AudioManager.Instance.PlayMusic(gameMusic);
         SceneManager.LoadScene("GameScene");
     }
 
