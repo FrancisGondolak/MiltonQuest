@@ -27,7 +27,7 @@ public class MiltonLogic : MonoBehaviour
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
     public MenuManager menuManager;//acceder a la clase MenuManager
-    private bool GamePaused;//variable para controlar cuándo está pausado o no el juego
+    public bool GamePaused;//variable para controlar cuándo está pausado o no el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
 
     private float stepTimer = 0f; //temporizador para controlar los pasos
@@ -65,6 +65,7 @@ public class MiltonLogic : MonoBehaviour
 
     void Update()
     {
+
         //movimiento del personaje
         float moveX = Input.GetAxis("Horizontal");  //movimiento a izquierda (con A/D o flechas izquierda/derecha)
         float moveZ = Input.GetAxis("Vertical");    //movimiento hacia delante o hacia el fondo, en vertical (con W/S o flechas arriba/abajo)
@@ -104,15 +105,15 @@ public class MiltonLogic : MonoBehaviour
         Vector3 moveDirection = new Vector3(-moveX, 0, -moveZ).normalized * moveSpeed; //ejes X y Z en negativo porque están invertidos en el juego, no sé porqué (habría que mirarlo)
         rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); //actualizar la velocidad del personaje con la dirección en la que se mueve
 
-        //disparar agua al pulsar la barra espaciadora
-        if (Input.GetKeyDown(KeyCode.Space))
+        //disparar agua al pulsar la barra espaciadora (si no está abierto el menú de pausa)
+        if (Input.GetKeyDown(KeyCode.Space) && !GamePaused)
         {
             ShootWaterBall();
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
-            //almmacena en la variable store la referencia de la tienda para comprobar si no es nula ni está activo el canvas de la tienda antes de permitir abrir el menú de pausa
+            //almacena en la variable store la referencia de la tienda para comprobar si no es nula ni está activo el canvas de la tienda antes de permitir abrir el menú de pausa
             StoreManager store = Object.FindFirstObjectByType<StoreManager>();
 
             if (store != null && !store.storeUI.activeSelf)
@@ -126,7 +127,6 @@ public class MiltonLogic : MonoBehaviour
                     menuManager.ClosePauseMenuCanvas();
                 }
 
-                GamePaused = !GamePaused; 
             }
         }
     }
@@ -301,7 +301,7 @@ public class MiltonLogic : MonoBehaviour
     {
         if (currentHealth < maxHealth)
         {
-            AudioManager.Instance.PlaySFX(sfxEatAppleHeart);
+            AudioManager.Instance.PlayLouderSFX(sfxEatAppleHeart);
             currentHealth++;
             UpdateHeartsUI();
         }

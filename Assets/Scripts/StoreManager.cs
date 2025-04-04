@@ -4,11 +4,19 @@ using System.Collections.Generic;
 
 public class StoreManager : MonoBehaviour
 {
+    [Header("Audio Sources")]
+    public AudioClip sfxBuyItem;
+    public AudioClip sfxItemNavigate;
+    public AudioClip storeMusic;
+    public AudioClip gameMusic;
+
+    [Header("Others")]
     public InventoryManager inventoryManager;  //referencia pública, una instancia, del InventoryManager (para poder usar los métodos de ese script) Se agrega en el Inspector
     public GameObject storeUI;  //referencia al canvas de la tienda que contiene todos los objetos y botones
     public float interactionRange = 3f;  //distancia a la que el jugador puede interactuar con el vendedor
     private bool isPlayerInRange = false; //indica si el jugador está cerca del vendedor
     private GameObject player;  //referencia al jugador para detectar la proximidad
+    public GameObject interactionHintHolder; //bocadillo de la tienda (con botón E, para indicar cómo interactuar con ella)
 
     //lista de objetos disponibles en la tienda y sus precios
     public List<StoreItem> storeItems = new List<StoreItem>();
@@ -19,6 +27,7 @@ public class StoreManager : MonoBehaviour
         //asegura que la tienda está oculta al principio
         storeUI.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");  //localiza el objeto con el Tag "Player" (Milton)
+        interactionHintHolder.SetActive(false);  //ocultar bocadillo al iniciar
         UpdateSelectionHighlight();
     }
 
@@ -33,6 +42,16 @@ public class StoreManager : MonoBehaviour
         else
         {
             isPlayerInRange = false;
+        }
+
+        //verifica si el jugador está cerca y si la tienda está abierta o cerrada para mostrar el bocadillo del tendero
+        if (isPlayerInRange && !storeUI.activeSelf)
+        {
+            interactionHintHolder.SetActive(true); //muestra el bocadillo
+        }
+        else
+        {
+            interactionHintHolder.SetActive(false); //pculta el bocadillo
         }
 
         //si el jugador está cerca y pulsa la tecla "Enter", abrir o cerrar la tienda
@@ -64,6 +83,8 @@ public class StoreManager : MonoBehaviour
     //método para moverse entre los objetos de la tienda
     private void NavigateItems(int direction)
     {
+        AudioManager.Instance.PlayLouderSFX(sfxItemNavigate);
+
         //cambiar el índice del objeto seleccionado
         currentItemIndex = Mathf.Clamp(currentItemIndex + direction, 0, storeItems.Count - 1);
 
@@ -90,8 +111,20 @@ public class StoreManager : MonoBehaviour
     //método para abrir o cerrar la tienda
     private void ToggleStore()
     {
-        storeUI.SetActive(!storeUI.activeSelf);  //cambia el estado de la tienda (activa/desactiva)
-        Time.timeScale = storeUI.activeSelf ? 0 : 1; //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
+        bool isStoreOpen =!storeUI.activeSelf;  //almacenamos en el booleano el estado de la tienda (true o false, dependiendo de si está activa o no)
+        storeUI.SetActive(isStoreOpen);  //cambia el estado de la tienda (activa/desactiva)
+
+        Time.timeScale = isStoreOpen ? 0 : 1;  //pausa el juego cuando la tienda está abierta, y lo reanuda cuando se cierra
+
+        //cambia la música dependiendo de si la tienda está abierta o cerrada
+        if (isStoreOpen)
+        {
+            AudioManager.Instance.PlayMusic(storeMusic);  //música de la tienda
+        }
+        else
+        {
+            AudioManager.Instance.PlayMusic(gameMusic);  //música del juego
+        }
     }
 
     //método para intentar comprar el objeto seleccionado
@@ -108,6 +141,7 @@ public class StoreManager : MonoBehaviour
                 bool purchased = inventoryManager.BuyItem(selectedItem.itemType, selectedItem.price);
                 if (purchased)
                 {
+                    AudioManager.Instance.PlayLouderSFX(sfxBuyItem);
                     inventoryManager.ShowMessage("Objeto comprado");
                 }
             }

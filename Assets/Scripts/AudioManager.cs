@@ -60,6 +60,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayButtonClick()
     {
-        PlaySFX(buttonClickSFX);
+        PlayLouderSFX(buttonClickSFX);
     }
 }

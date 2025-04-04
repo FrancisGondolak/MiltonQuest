@@ -122,6 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf51b60f22920c4fadf25c0d870f6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxBuyItem: {fileID: 8300000, guid: 7db7b5be7f858d14cb5ac054436d6c5b, type: 3}
+  sfxItemNavigate: {fileID: 8300000, guid: 6d29438472643e544b3c40108a692247, type: 3}
+  storeMusic: {fileID: 8300000, guid: df24d728194bc864c966348f9e7123d7, type: 3}
+  gameMusic: {fileID: 8300000, guid: a756d943fcd9a854281918a58d3451f6, type: 3}
   inventoryManager: {fileID: 0}
   storeUI: {fileID: 0}
   interactionRange: 3

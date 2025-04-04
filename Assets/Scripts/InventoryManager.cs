@@ -6,6 +6,8 @@ using System.Collections;
 
 public class InventoryManager : MonoBehaviour
 {
+    public AudioClip sfxGetWater;
+
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
@@ -78,6 +80,7 @@ public class InventoryManager : MonoBehaviour
             }
             else if (usedItem == waterBottleSprite)
             {
+                AudioManager.Instance.PlayLouderSFX(sfxGetWater);
                 waterCounter.AddWater(25);
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
