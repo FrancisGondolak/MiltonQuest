@@ -4,6 +4,7 @@ using UnityEditor.Tilemaps;
 
 public class BasicMudlerMovement : MonoBehaviour
 {
+    public AudioClip sfxMudlerDeath;
     public float speed = 3f; //velocidad de movimiento del Mudler
     private int direction = 1; //dirección inicial (1 = adelante, -1 = atrás)
     public float radius = 5f; //radio del círculo (para mover a los Mudlers en círculo)
@@ -85,7 +86,7 @@ public class BasicMudlerMovement : MonoBehaviour
             Destroy(other.gameObject); //destruye la bala al ser recibida
         }
 
-        //si choca con Milton y no está muriéndose, le hace daño (método en el Script de Milton)
+        //si choca con Milton y no está muriéndose, le hace daño (método en el script de Milton)
         if (other.CompareTag("Player") && !isDying)
         {
             other.GetComponent<MiltonLogic>().TakeDamage(transform.position);
@@ -117,17 +118,16 @@ public class BasicMudlerMovement : MonoBehaviour
 
     private void TakeDamage()
     {
-        //si el enemigo NO se está muriendo, recibe daño y demás
+        //si el enemigo NO se está muriendo, recibe daño
         if (!isDying)
         {
             health--;
-
             animator.SetBool("isHurt", true);
+            AudioManager.Instance.PlaySFX(sfxMudlerDeath);
 
             if (health <= 0)
             {
                 isDying = true;
-
                 //destruir el Collider antes de destruir el objeto
                 Destroy(GetComponent<Collider>());
 
@@ -200,7 +200,6 @@ public class BasicMudlerMovement : MonoBehaviour
     private void DropItems()
     {
         enemiesDefeated++; //aumenta el contador de enemigos derrotados
-        Debug.Log("ENEMIGOS DERROTADOS: " +  enemiesDefeated);
         bool hasKey = System.Array.Exists(enemiesWithKey, element => element == enemiesDefeated);
 
         if (hasKey)

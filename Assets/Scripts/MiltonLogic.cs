@@ -27,12 +27,11 @@ public class MiltonLogic : MonoBehaviour
     public WaterCounterUI waterCounter; //accedemos a la clase WaterCounterUI para que el contador de agua sea afectado cuando Milton dispare o recoja/use botellas de agua
     public InventoryManager inventoryManager;//accedemos a la clase InventoryManager para afectar a las monedas cuando recojamos monedas en el juego
     public MenuManager menuManager;//acceder a la clase MenuManager
-    private bool GamePaused;//variable para controlar cuándo está pausado o no el juego
+    public bool gamePaused;//variable para controlar cuándo está pausado o no el juego
     public float shootAnimationDuration = 0.5f; //duración de la animación de disparo
 
     private float stepTimer = 0f; //temporizador para controlar los pasos
     public float stepInterval = 5f; //intervalo entre pasos (ajustar según la velocidad del personaje)
-
 
     private bool isFlipping = false; //booleano para evitar que se interrumpa la animación de girarse hacia el otro lado
     public float flipSpeed = 0.2f; //velocidad del giro
@@ -54,17 +53,20 @@ public class MiltonLogic : MonoBehaviour
 
     private Rigidbody rb;//variable que va a contener el objeto Milton
 
+    private bool isReloading = false; //variable para evitar múltiples recargas cuando Milton se queda a 0 de agua
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         miltonCollider = GetComponent<Collider>(); //obtiene el Collider de Milton
         currentHealth = maxHealth;
         UpdateHeartsUI();
-        GamePaused = false;
+        gamePaused = false;
     }
 
     void Update()
     {
+
         //movimiento del personaje
         float moveX = Input.GetAxis("Horizontal");  //movimiento a izquierda (con A/D o flechas izquierda/derecha)
         float moveZ = Input.GetAxis("Vertical");    //movimiento hacia delante o hacia el fondo, en vertical (con W/S o flechas arriba/abajo)
@@ -104,20 +106,20 @@ public class MiltonLogic : MonoBehaviour
         Vector3 moveDirection = new Vector3(-moveX, 0, -moveZ).normalized * moveSpeed; //ejes X y Z en negativo porque están invertidos en el juego, no sé porqué (habría que mirarlo)
         rb.linearVelocity = new Vector3(moveDirection.x, rb.linearVelocity.y, moveDirection.z); //actualizar la velocidad del personaje con la dirección en la que se mueve
 
-        //disparar agua al pulsar la barra espaciadora
-        if (Input.GetKeyDown(KeyCode.Space))
+        //disparar agua al pulsar la barra espaciadora (si no está abierto el menú de pausa)
+        if (Input.GetKeyDown(KeyCode.Space) && !gamePaused)
         {
             ShootWaterBall();
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)) 
         {
-            //almmacena en la variable store la referencia de la tienda para comprobar si no es nula ni está activo el canvas de la tienda antes de permitir abrir el menú de pausa
+            //almacena en la variable store la referencia de la tienda para comprobar si no es nula ni está activo el canvas de la tienda antes de permitir abrir el menú de pausa
             StoreManager store = Object.FindFirstObjectByType<StoreManager>();
 
             if (store != null && !store.storeUI.activeSelf)
             {
-                if (!GamePaused)
+                if (!gamePaused)
                 {
                     menuManager.OpenPauseMenuCanvas();
                 }
@@ -126,7 +128,6 @@ public class MiltonLogic : MonoBehaviour
                     menuManager.ClosePauseMenuCanvas();
                 }
 
-                GamePaused = !GamePaused; 
             }
         }
     }
@@ -166,44 +167,11 @@ public class MiltonLogic : MonoBehaviour
                 waterBall.transform.rotation = Quaternion.Euler(0, 180, 0);
             }
         }
-
-    }
-
-    //función para girar al personaje cuando cambia de dirección usando una corrutina para que lo haga frame a frame
-    IEnumerator FlipAnimation()
-    {
-
-        isFlipping = true; //evita que se interrumpa la animación si el jugador intenta moverse antes de que termine
-
-        float duration = flipSpeed; //define la duración de la animación de giro
-
-        float elapsedTime = 0f; //tiempo transcurrido desde que empezó el giro
-
-        Quaternion startRotation = transform.rotation; //guarda la rotación actual del personaje antes del giro
-
-        //define la rotación final según la dirección a la que se va a girar
-        //si facingLeft es true, gira a 0° (mirando a la derecha)
-        //si facingLeft es false, gira a 180° (mirando a la izquierda)
-        Quaternion endRotation = Quaternion.Euler(0, facingLeft ? 0 : 180, 0);
-       
-        while (elapsedTime < duration)  //bucle que ejecuta la animación de giro durante la duración establecida
+        else if (!isReloading) //solo inicia la recarga si no está en proceso (para evitar múltiples corrutinas si seguimos pulsando el botón de disparo)
         {
-            float t = elapsedTime / duration; //calcula el progreso de la animación (valor entre 0 y 1)
-            
-            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t); //interpola suavemente entre la rotación inicial y final según el progreso
-
-            elapsedTime += Time.deltaTime; //aumenta el tiempo transcurrido en cada frame
-
-            yield return null; //pausa la ejecución de la corrutina hasta el siguiente frame
+            inventoryManager.ShowMessage("No tienes agua. Recargando...");
+            StartCoroutine(ReloadWater());
         }
-
-        transform.rotation = endRotation; //asegura que la rotación final sea exactamente la esperada (corrige posibles imprecisiones)
-
-        facingLeft = !facingLeft; //cambia el valor de facingLeft para reflejar la nueva dirección del personaje
-
-        firePoint.right = facingLeft ? -transform.right : transform.right; //ajusta la dirección del disparo para que se mantenga coherente con la rotación
-
-        isFlipping = false; //permite que la animación de giro pueda ejecutarse nuevamente en el futuro
 
     }
 
@@ -220,7 +188,7 @@ public class MiltonLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("LittleWaterBottle"))
         {
-            AudioManager.Instance.PlaySFX(sfxGetWater);
+            AudioManager.Instance.PlayLouderSFX(sfxGetWater);
             Destroy(other.gameObject);
             waterCounter.currentWater += 10; //aumenta la munición de agua al recoger botellas pequeñas
             waterCounter.UpdateUI(); //llama al método del contador de Agua para actualizar la munición
@@ -241,7 +209,7 @@ public class MiltonLogic : MonoBehaviour
                 Door door = other.gameObject.GetComponent<Door>(); //obtiene el script de la puerta
                 if (door != null)
                 {
-                    AudioManager.Instance.PlaySFX(sfxDoorOpen);
+                    AudioManager.Instance.PlayLouderSFX(sfxDoorOpen);
                     transform.position = door.GetDestination().position; //teletransporta a Milton al punto de la siguiente sala
                     inventoryManager.hasKey = false; //pierde la llave al cambiar de sala
                     inventoryManager.UpdateInventoryUI();
@@ -301,13 +269,13 @@ public class MiltonLogic : MonoBehaviour
     {
         if (currentHealth < maxHealth)
         {
-            AudioManager.Instance.PlaySFX(sfxEatAppleHeart);
+            AudioManager.Instance.PlayLouderSFX(sfxEatAppleHeart);
             currentHealth++;
             UpdateHeartsUI();
         }
         else
         {
-            Debug.Log("Vida de Milton completa");
+            inventoryManager.ShowMessage("Vida de Milton completa");
         }
     }
 
@@ -328,7 +296,45 @@ public class MiltonLogic : MonoBehaviour
         StartCoroutine(ShowGameOverMenu());
     }
 
-    //corutina para la animación de disparo
+    //corrutina para girar al personaje cuando cambia de dirección usando una corrutina para que lo haga frame a frame
+    IEnumerator FlipAnimation()
+    {
+
+        isFlipping = true; //evita que se interrumpa la animación si el jugador intenta moverse antes de que termine
+
+        float duration = flipSpeed; //define la duración de la animación de giro
+
+        float elapsedTime = 0f; //tiempo transcurrido desde que empezó el giro
+
+        Quaternion startRotation = transform.rotation; //guarda la rotación actual del personaje antes del giro
+
+        //define la rotación final según la dirección a la que se va a girar
+        //si facingLeft es true, gira a 0° (mirando a la derecha)
+        //si facingLeft es false, gira a 180° (mirando a la izquierda)
+        Quaternion endRotation = Quaternion.Euler(0, facingLeft ? 0 : 180, 0);
+
+        while (elapsedTime < duration)  //bucle que ejecuta la animación de giro durante la duración establecida
+        {
+            float t = elapsedTime / duration; //calcula el progreso de la animación (valor entre 0 y 1)
+
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t); //interpola suavemente entre la rotación inicial y final según el progreso
+
+            elapsedTime += Time.deltaTime; //aumenta el tiempo transcurrido en cada frame
+
+            yield return null; //pausa la ejecución de la corrutina hasta el siguiente frame
+        }
+
+        transform.rotation = endRotation; //asegura que la rotación final sea exactamente la esperada (corrige posibles imprecisiones)
+
+        facingLeft = !facingLeft; //cambia el valor de facingLeft para reflejar la nueva dirección del personaje
+
+        firePoint.right = facingLeft ? -transform.right : transform.right; //ajusta la dirección del disparo para que se mantenga coherente con la rotación
+
+        isFlipping = false; //permite que la animación de giro pueda ejecutarse nuevamente en el futuro
+
+    }
+
+    //corrutina para la animación de disparo
     IEnumerator WaitForShootAnimation()
     {
         //esperamos el tiempo de duración de la animación de disparo
@@ -339,6 +345,21 @@ public class MiltonLogic : MonoBehaviour
         animator.SetBool("idleAttack", false);
     }
 
+    //corrutina para añadir 5 disparos después de 5 segundos si nos quedamos sin agua
+    IEnumerator ReloadWater()
+    {
+        isReloading = true; //evita múltiples recargas
+        yield return new WaitForSeconds(5f); //espera 5 segundos
+
+        waterCounter.currentWater += 5; //agrega 5 disparos de agua
+        waterCounter.UpdateUI(); //actualiza la UI del agua
+        AudioManager.Instance.PlayLouderSFX(sfxGetWater);
+
+        inventoryManager.ShowMessage("Recargas 5 disparos");
+        isReloading = false; //volvemos a poner el booleano en false para repetir la corrutina si nos quedamos a 0 de agua
+    }
+
+    //corrutina para ser invulnerable durante unos segundos tras recibir daño
     IEnumerator InvulnerabilityFrames()
     {
         isInvulnerable = true;

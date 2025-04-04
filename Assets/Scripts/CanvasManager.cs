@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
         historyMenu.SetActive(true);
     }
 
-    //Método para ir al canvas de controles
+    //método para ir al canvas de controles
     public void OpenControlsCanvas()
     {
         historyMenu.SetActive(false);

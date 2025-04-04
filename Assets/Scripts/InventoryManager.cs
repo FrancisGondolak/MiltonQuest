@@ -6,6 +6,8 @@ using System.Collections;
 
 public class InventoryManager : MonoBehaviour
 {
+    public AudioClip sfxGetWater;
+
     public List<Image> slots = new List<Image>(); //Lista para el inventario
     public Sprite waterBottleSprite; //Icono para la botella de agua
     public Sprite appleHeartSprite;  //Icono para la coranzana
@@ -38,7 +40,7 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    //Método que añade un objeto al inventario
+    //método que añade un objeto al inventario
     public bool AddItem(string itemType)
     {
         //Controlar qué icono agregamos al inventario
@@ -78,6 +80,7 @@ public class InventoryManager : MonoBehaviour
             }
             else if (usedItem == waterBottleSprite)
             {
+                AudioManager.Instance.PlayLouderSFX(sfxGetWater);
                 waterCounter.AddWater(25);
                 items.RemoveAt(index); //elimina el objeto seleccionado
                 UpdateInventoryUI();  //actualiza la UI
@@ -116,7 +119,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //Método para actualizar la UI del inventario
+    //método para actualizar la UI del inventario
     public void UpdateInventoryUI()
     {
         //actualiza el número de monedas
@@ -155,7 +158,7 @@ public class InventoryManager : MonoBehaviour
         StartCoroutine(ClearMessageAfterDelay(2f));
     }
     
-    //método para limpiar el mensaje en pantalla pasado un tiempo
+    //corrutina para limpiar el mensaje en pantalla pasado un tiempo
     private IEnumerator ClearMessageAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
