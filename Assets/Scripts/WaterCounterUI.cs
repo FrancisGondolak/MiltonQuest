@@ -20,13 +20,13 @@ public class WaterCounterUI : MonoBehaviour
         return currentWater;
     }
 
-    //función para actualizar el número de disparos en pantalla
+    //método para actualizar el número de disparos en pantalla
     public void UpdateUI()
     {
         waterText.text = currentWater.ToString();
     }
 
-    //función para restar los disparos al usarlos
+    //método para restar los disparos al usarlos
     public void UseWater()
     {
         if (currentWater > 0)
@@ -36,7 +36,7 @@ public class WaterCounterUI : MonoBehaviour
         }
     }
 
-    //función para añadir más disparos al contador al recoger/usar botellas de agua
+    //método para añadir más disparos al contador al recoger/usar botellas de agua
     public void AddWater(int amount)
     {
         currentWater += amount;

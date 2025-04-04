@@ -32,6 +32,7 @@ public class AudioManager : MonoBehaviour
         PlayMusic(backgroundMusic);
     }
 
+    //método para la reproducción de música
     public void PlayMusic(AudioClip clip)
     {
         if (musicSource.clip != clip)
@@ -42,6 +43,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //método para la reproducción de efectos de sonido a un volumen medio
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)
@@ -50,6 +52,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //método para la reproducción de efectos de sonido a un volumen alto (para efectos de sonido que se oigan demasiado bajo)
     public void PlayLouderSFX(AudioClip clip)
     {
         if (clip != null)
@@ -58,6 +61,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //método para el sonido que hacen los botones de los menús al hacer click sobre ellos
     public void PlayButtonClick()
     {
         PlayLouderSFX(buttonClickSFX);

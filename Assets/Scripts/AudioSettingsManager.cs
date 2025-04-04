@@ -10,7 +10,7 @@ public class AudioSettingsManager : MonoBehaviour
 
     void Start()
     {
-        // Cargar valores guardados o establecer valores predeterminados
+        //carga valores predeterminados a la música y efectos de sonido del AudioMixer
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
         sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.8f);
         SetMusicVolume(musicSlider.value);

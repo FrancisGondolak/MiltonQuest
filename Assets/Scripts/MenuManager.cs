@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
     public void OpenPauseMenuCanvas()
     {
         
-        milton.GamePaused = true;
+        milton.gamePaused = true;
         pauseMenu.SetActive(true);
         AudioManager.Instance.PlayMusic(pauseMusic);
         Time.timeScale = 0;
@@ -30,7 +30,7 @@ public class MenuManager : MonoBehaviour
     //método para cerrar el menú de pausa
     public void ClosePauseMenuCanvas()
     {
-        milton.GamePaused = false;
+        milton.gamePaused = false;
         pauseMenu.SetActive(false);
         AudioManager.Instance.PlayMusic(gameMusic);
         Time.timeScale = 1;

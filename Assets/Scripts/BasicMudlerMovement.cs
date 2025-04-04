@@ -86,7 +86,7 @@ public class BasicMudlerMovement : MonoBehaviour
             Destroy(other.gameObject); //destruye la bala al ser recibida
         }
 
-        //si choca con Milton y no está muriéndose, le hace daño (método en el Script de Milton)
+        //si choca con Milton y no está muriéndose, le hace daño (método en el script de Milton)
         if (other.CompareTag("Player") && !isDying)
         {
             other.GetComponent<MiltonLogic>().TakeDamage(transform.position);
@@ -118,7 +118,7 @@ public class BasicMudlerMovement : MonoBehaviour
 
     private void TakeDamage()
     {
-        //si el enemigo NO se está muriendo, recibe daño y demás
+        //si el enemigo NO se está muriendo, recibe daño
         if (!isDying)
         {
             health--;
@@ -200,7 +200,6 @@ public class BasicMudlerMovement : MonoBehaviour
     private void DropItems()
     {
         enemiesDefeated++; //aumenta el contador de enemigos derrotados
-        Debug.Log("ENEMIGOS DERROTADOS: " +  enemiesDefeated);
         bool hasKey = System.Array.Exists(enemiesWithKey, element => element == enemiesDefeated);
 
         if (hasKey)

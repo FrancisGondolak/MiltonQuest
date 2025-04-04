@@ -19,6 +19,7 @@ public class StoreManager : MonoBehaviour
     public GameObject interactionHintHolder; //bocadillo de la tienda (con botón E, para indicar cómo interactuar con ella)
     public MiltonLogic milton; //acceder a Milton para no poder disparar agua si está abierta la tienda
 
+
     //lista de objetos disponibles en la tienda y sus precios
     public List<StoreItem> storeItems = new List<StoreItem>();
     private int currentItemIndex = 0; //índice del objeto actualmente seleccionado, el 0 de entrada
@@ -120,12 +121,12 @@ public class StoreManager : MonoBehaviour
         //cambia la música y pausa el juego dependiendo de si la tienda está abierta o cerrada
         if (isStoreOpen)
         {
-            milton.GamePaused = true;
+            milton.gamePaused = true;
             AudioManager.Instance.PlayMusic(storeMusic);  //música de la tienda
         }
         else
         {
-            milton.GamePaused = false;
+            milton.gamePaused = false;
             AudioManager.Instance.PlayMusic(gameMusic);  //música del juego
         }
     }

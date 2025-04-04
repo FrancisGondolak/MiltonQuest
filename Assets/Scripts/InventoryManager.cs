@@ -40,7 +40,7 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    //Método que añade un objeto al inventario
+    //método que añade un objeto al inventario
     public bool AddItem(string itemType)
     {
         //Controlar qué icono agregamos al inventario
@@ -119,7 +119,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //Método para actualizar la UI del inventario
+    //método para actualizar la UI del inventario
     public void UpdateInventoryUI()
     {
         //actualiza el número de monedas
@@ -158,7 +158,7 @@ public class InventoryManager : MonoBehaviour
         StartCoroutine(ClearMessageAfterDelay(2f));
     }
     
-    //método para limpiar el mensaje en pantalla pasado un tiempo
+    //corrutina para limpiar el mensaje en pantalla pasado un tiempo
     private IEnumerator ClearMessageAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);

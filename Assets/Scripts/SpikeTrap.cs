@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SpikeTrap : MonoBehaviour
 {
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -10,7 +9,7 @@ public class SpikeTrap : MonoBehaviour
             MiltonLogic milton = other.GetComponent<MiltonLogic>();
             if (milton != null)
             {
-                milton.TakeDamage(transform.position); //llama a la función de daño de Milton
+                milton.TakeDamage(transform.position); //llama al método para hacer daño a Milton
             }
         }
     }
