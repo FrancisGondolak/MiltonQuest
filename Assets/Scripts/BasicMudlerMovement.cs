@@ -4,6 +4,7 @@ using UnityEditor.Tilemaps;
 
 public class BasicMudlerMovement : MonoBehaviour
 {
+    public AudioClip sfxMudlerDeath;
     public float speed = 3f; //velocidad de movimiento del Mudler
     private int direction = 1; //dirección inicial (1 = adelante, -1 = atrás)
     public float radius = 5f; //radio del círculo (para mover a los Mudlers en círculo)
@@ -121,13 +122,12 @@ public class BasicMudlerMovement : MonoBehaviour
         if (!isDying)
         {
             health--;
-
             animator.SetBool("isHurt", true);
+            AudioManager.Instance.PlaySFX(sfxMudlerDeath);
 
             if (health <= 0)
             {
                 isDying = true;
-
                 //destruir el Collider antes de destruir el objeto
                 Destroy(GetComponent<Collider>());
 

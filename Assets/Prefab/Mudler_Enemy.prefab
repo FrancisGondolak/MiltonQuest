@@ -174,7 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800d404d5ab17f44a8edb1b74f9783cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxMudlerHurt: {fileID: 8300000, guid: 1a8a6206afd539041bd39add3ae61951, type: 3}
+  sfxMudlerDeath: {fileID: 8300000, guid: c360a21321525fd4bb47ab2b63052ad0, type: 3}
   speed: 3
+  radius: 5
+  center: {x: 0, y: 0, z: 0}
   health: 3
   shrinkSpeed: 0.6
   hurtDuration: 0.5

@@ -220,7 +220,7 @@ public class MiltonLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("LittleWaterBottle"))
         {
-            AudioManager.Instance.PlaySFX(sfxGetWater);
+            AudioManager.Instance.PlayLouderSFX(sfxGetWater);
             Destroy(other.gameObject);
             waterCounter.currentWater += 10; //aumenta la munición de agua al recoger botellas pequeñas
             waterCounter.UpdateUI(); //llama al método del contador de Agua para actualizar la munición
@@ -241,7 +241,7 @@ public class MiltonLogic : MonoBehaviour
                 Door door = other.gameObject.GetComponent<Door>(); //obtiene el script de la puerta
                 if (door != null)
                 {
-                    AudioManager.Instance.PlaySFX(sfxDoorOpen);
+                    AudioManager.Instance.PlayLouderSFX(sfxDoorOpen);
                     transform.position = door.GetDestination().position; //teletransporta a Milton al punto de la siguiente sala
                     inventoryManager.hasKey = false; //pierde la llave al cambiar de sala
                     inventoryManager.UpdateInventoryUI();

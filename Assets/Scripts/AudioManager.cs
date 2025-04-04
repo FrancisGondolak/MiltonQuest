@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     public AudioSource musicSource;
     public AudioSource sfxSource;
+    public AudioSource louderSfxSource;
 
     [Header("Audio Clips")]
     public AudioClip backgroundMusic;
@@ -46,6 +47,14 @@ public class AudioManager : MonoBehaviour
         if (clip != null)
         {
             sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    public void PlayLouderSFX(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            louderSfxSource.PlayOneShot(clip);
         }
     }
 
