@@ -14,6 +14,8 @@ public class MiltonLogic : MonoBehaviour
     public AudioClip sfxGetWater;
     public AudioClip sfxMiltonHurts;
     public AudioClip sfxMiltonShoot;
+    public AudioClip shopMusic;
+    public AudioClip gameOverMusic;
 
 
     [Header("Others")]
@@ -210,6 +212,7 @@ public class MiltonLogic : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Coin"))
         {
+            AudioManager.Instance.PlaySFX(sfxGetCoin);
             Destroy(other.gameObject);
             inventoryManager.coins += 5; //aumenta el contador de monedas
             inventoryManager.UpdateInventoryUI(); //llama al método del inventario para actualizarlo con las monedas sumadas
@@ -217,6 +220,7 @@ public class MiltonLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("LittleWaterBottle"))
         {
+            AudioManager.Instance.PlaySFX(sfxGetWater);
             Destroy(other.gameObject);
             waterCounter.currentWater += 10; //aumenta la munición de agua al recoger botellas pequeñas
             waterCounter.UpdateUI(); //llama al método del contador de Agua para actualizar la munición
@@ -224,6 +228,7 @@ public class MiltonLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("Key"))
         {
+            AudioManager.Instance.PlaySFX(sfxGetKey);
             Destroy(other.gameObject);
             inventoryManager.hasKey = true;
             inventoryManager.UpdateInventoryUI();
@@ -236,6 +241,7 @@ public class MiltonLogic : MonoBehaviour
                 Door door = other.gameObject.GetComponent<Door>(); //obtiene el script de la puerta
                 if (door != null)
                 {
+                    AudioManager.Instance.PlaySFX(sfxDoorOpen);
                     transform.position = door.GetDestination().position; //teletransporta a Milton al punto de la siguiente sala
                     inventoryManager.hasKey = false; //pierde la llave al cambiar de sala
                     inventoryManager.UpdateInventoryUI();
@@ -243,6 +249,7 @@ public class MiltonLogic : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlaySFX(sfxDoorLocked);
                 inventoryManager.ShowMessage("No tienes la llave");
             }
         }
@@ -262,8 +269,12 @@ public class MiltonLogic : MonoBehaviour
         //activa la invulnerabilidad durante tres segundos tras recibir daño
         StartCoroutine(InvulnerabilityFrames());
 
-        //si la vida llega a 0, activar método Die() para el Game Over
-        if (currentHealth <= 0)
+        //if/else para controlar cuando suena el grito de daño de Milton o cuando muere directamente, llamando al método Die()
+        if (currentHealth > 0)
+        {
+            AudioManager.Instance.PlaySFX(sfxMiltonHurts);
+        }
+        else
         {
             Die();
         }
@@ -290,6 +301,7 @@ public class MiltonLogic : MonoBehaviour
     {
         if (currentHealth < maxHealth)
         {
+            AudioManager.Instance.PlaySFX(sfxEatAppleHeart);
             currentHealth++;
             UpdateHeartsUI();
         }
@@ -302,6 +314,7 @@ public class MiltonLogic : MonoBehaviour
     //método para la animación de muerte y Game Over
     private void Die()
     {
+        AudioManager.Instance.PlayMusic(gameOverMusic);
         isDead = true;
         animator.SetBool("isDeath", true);
 

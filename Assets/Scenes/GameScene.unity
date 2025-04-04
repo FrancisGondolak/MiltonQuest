@@ -4350,7 +4350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.19967028, y: 0.32200003}
-  m_AnchoredPosition: {x: 88.70036, y: -6.9999657}
+  m_AnchoredPosition: {x: 88.70037, y: -6.9999657}
   m_SizeDelta: {x: 180, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892416950
@@ -4613,6 +4613,8 @@ MonoBehaviour:
   sfxGetWater: {fileID: 8300000, guid: ca475600e8a0b214e8bea32e47b23311, type: 3}
   sfxMiltonHurts: {fileID: 8300000, guid: d3c69e1c89bf3e04e9572f10008de9b4, type: 3}
   sfxMiltonShoot: {fileID: 8300000, guid: 4f4f3835affc07947bb09a2243a5efce, type: 3}
+  shopMusic: {fileID: 8300000, guid: df24d728194bc864c966348f9e7123d7, type: 3}
+  gameOverMusic: {fileID: 8300000, guid: d40458ebc20c75d439941bd325a2c26f, type: 3}
   moveSpeed: 5
   waterBallPrefab: {fileID: 1435495127096986931, guid: 260c632b958aed04f96753d748458ab0, type: 3}
   firePoint: {fileID: 1315926856}
@@ -7290,6 +7292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 493787178}
   gameOverMenu: {fileID: 1765436724}
+  gameMusic: {fileID: 8300000, guid: a756d943fcd9a854281918a58d3451f6, type: 3}
+  pauseMusic: {fileID: 8300000, guid: 5f50be065c9ed374d8a212aeaae911aa, type: 3}
 --- !u!1 &1578341797
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,7 +8524,7 @@ Transform:
   m_GameObject: {fileID: 1928344465}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -34.51, y: 4.9, z: 25}
+  m_LocalPosition: {x: -34.32, y: 4.9, z: 25}
   m_LocalScale: {x: 3.256764, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8545,8 +8549,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25.4, y: 0.008787121, z: 12.862814}
-  m_Center: {x: 0, y: -0.0043909266, z: 0}
+  m_Size: {x: 25.4, y: 1.1849499, z: 12.862814}
+  m_Center: {x: 0.000000021365171, y: 0.5836905, z: -0.00000006958133}
 --- !u!23 &1928344468
 MeshRenderer:
   m_ObjectHideFlags: 0
