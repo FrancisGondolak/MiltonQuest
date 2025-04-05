@@ -39,6 +39,7 @@ public class MenuManager : MonoBehaviour
     //Método para abrir el menú de game over
     public void OpenGameOverMenuCanvas()
     {
+        milton.gamePaused = true;
         gameOverMenu.SetActive(true);
     }
 

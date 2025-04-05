@@ -13,7 +13,7 @@ public class StoreManager : MonoBehaviour
     [Header("Others")]
     public InventoryManager inventoryManager;  //referencia pública, una instancia, del InventoryManager (para poder usar los métodos de ese script) Se agrega en el Inspector
     public GameObject storeUI;  //referencia al canvas de la tienda que contiene todos los objetos y botones
-    public float interactionRange = 3f;  //distancia a la que el jugador puede interactuar con el vendedor
+    public float interactionRange = 6f;  //distancia a la que el jugador puede interactuar con el vendedor
     private bool isPlayerInRange = false; //indica si el jugador está cerca del vendedor
     private GameObject player;  //referencia al jugador para detectar la proximidad
     public GameObject interactionHintHolder; //bocadillo de la tienda (con botón E, para indicar cómo interactuar con ella)
